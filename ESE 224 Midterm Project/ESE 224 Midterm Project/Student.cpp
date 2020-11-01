@@ -142,10 +142,25 @@ void Student::displayMenu() {
 	cout << endl << endl << "Welcome back, Student" << endl << endl << "Please choose:" << endl << "\t1 -- Borrow Books" << endl << "\t3 -- Return Books" << endl << "\t0 -- Log Out" << endl;
 }
 
+void Student::borrowBook(LMS library, int ISBN) {
+	if (!library.copiesAvaliable(ISBN)) {
+		cout << "This book is either currently being borrowed or does not exist!" << endl;
+	} else if(overdue) {
+
+	}
+
+	else {
+		library.borrowBook(ISBN);
+	}
+}
+
+void Student::returnBook(LMS library, int ISBN) {
+
+}
+
 int Student::returnDay() { // returns day
 	clock_t t_difference = clock() - t_start; // this is used to find current time
 	float seconds = t_difference / CLOCKS_PER_SEC;
 	int day = seconds / 5 + 1; ;// We add 1 because the day starts at Day 1
 	return day;
-}
 }

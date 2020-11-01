@@ -1,5 +1,6 @@
 #pragma once
 #include "Book.h"
+#include "Library.h"
 #include <iostream>
 #include <string>
 #include <vector>
@@ -47,13 +48,10 @@ public:
 	void displayMenu();
 
 	// student operations
-	void borrowBook();
-	void returnBook();
+	void borrowBook(LMS library, int ISBN);
+	void returnBook(LMS library, int ISBN);
 
 	// date counter
 	int returnDay();	// returns day (day 1 begins once program starts)
-
-	
-
 };
 
