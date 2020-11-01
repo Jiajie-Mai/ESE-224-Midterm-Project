@@ -1,0 +1,12 @@
+Student Name: John
+Username: AzureDiamond
+Password: hunter2
+Max Copies: 3
+IDs of Borrowed Books: 1 2 
+Length of Borrowing Period (in Days): 33 34 
+Student Name: James
+Username: username
+Password: password
+Max Copies: 2
+IDs of Borrowed Books: 3 4 
+Length of Borrowing Period (in Days): 30 29 

@@ -11,8 +11,8 @@ private:
 	string Category;
 	int ID;
 	string studentName;
-	int	startDate[3];
-	int expirationDate[3];
+	int	startDate;
+	int expirationDate;
 public:
 	//constructors
 	Book();
@@ -24,7 +24,9 @@ public:
 	string getCategory();
 	int getID();
 	string getStudent();
-	// need functions for start & expiration date
+	int getStartDate();
+	int getExpirationDate();
+	
 
 	// mutator functions
 	void setISBN(int ISBN);
@@ -33,9 +35,14 @@ public:
 	void setCategory(string Category);
 	void setID(int ID);
 	void setStudent(string studentName);
+	void setStartDate(int startDate);
+	void setExpirationDate(int expirationDate);
+
 
 	friend ostream& operator<< (ostream& output, Book& book);
 	friend istream& operator>> (istream& input, Book& book);
+
+
 
 };
 
