@@ -40,3 +40,19 @@ void Student::setPassword(string Password) {
 void Student::setMaxCopies(int maxCopies) {
 	this->maxCopies = maxCopies;
 }
+
+// authentication functions
+bool Student::authenticate(string Username, string Password) {
+	return (this->Username == Username && this->Password == Password);
+}
+void divider(int size) {
+	for (int i = 0; i < size; i++) {
+		cout << "-";
+	}
+}
+void Student::displayMenu() {
+	divider(50);
+	cout << endl << "-             Welcome to My Library!             -" << endl;
+	divider(50);
+	cout << endl << endl << "Welcome back, Student" << endl << endl << "Please choose:" << endl << "\t1 -- Borrow Books" << endl << "\t3 -- Return Books" << endl << "\t0 -- Log Out" << endl;
+}
