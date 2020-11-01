@@ -145,10 +145,7 @@ void Student::displayMenu() {
 void Student::borrowBook(LMS library, int ISBN) {
 	if (!library.copiesAvaliable(ISBN)) {
 		cout << "This book is either currently being borrowed or does not exist!" << endl;
-	} else if(overdue) {
-
 	}
-
 	else {
 		library.borrowBook(ISBN);
 	}
