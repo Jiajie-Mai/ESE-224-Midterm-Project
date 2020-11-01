@@ -4,6 +4,8 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <iostream>
+#include <string>
 #include <vector>
 using namespace std;
 class LMS
@@ -24,5 +26,7 @@ public:
 
 	void printLibrary(); // for testing, prints library
 	void printStudents(); // for testing, prints students
+public:
+	void findBook(string title);
 };
 

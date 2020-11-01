@@ -41,7 +41,6 @@ public:
 	// file operations
 	friend ostream& operator<< (ostream& output, Student& student);
 	friend istream& operator>> (istream& input, Student& student);
-	
 
 	// authentication function, returns boolean for if the authentication is successful
 	bool authenticate(string Username, string Password);
@@ -55,5 +54,6 @@ public:
 	int returnDay();	// returns day (day 1 begins once program starts)
 
 	
+
 };
 
