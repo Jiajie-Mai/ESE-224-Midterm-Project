@@ -12,6 +12,7 @@ class LMS
 {
 private:
 	vector<Book> library;
+	vector<Book> borrowed;
 	vector<Student> students;
 public:
 	Book findBook(int ID); // ids are unique (does not work if book does not exist)
@@ -26,7 +27,13 @@ public:
 
 	void printLibrary(); // for testing, prints library
 	void printStudents(); // for testing, prints students
-public:
-	void findBook(string title);
+
+	void initializeBorrow(); //moving books from library to borrowed if the students have them
+	bool bookAvaliable(int ID); // for checking if a book exists
+	bool copiesAvaliable(int ISBN); // for checking if a copy of a book exists
+
+	bool overdue(int ID);
+	void borrowBook(int ISBN); // helper function to the one in student
+	void returnBook(int ISBN); // helper function to the one in student
 };
 
