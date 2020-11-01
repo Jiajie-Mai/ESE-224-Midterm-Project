@@ -147,13 +147,3 @@ int Student::returnDay() { // returns day
 	int day = seconds / 5 + 1; ;// We add 1 because the day starts at Day 1
 	return day;
 }
-
-bool Student::isOverdue(int date) {
-	for (int i = 0; i < getBorrowed().size(); i++) {
-		int dueDate = getBorrowed()[i] + getBorrowingPeriod()[i];
-		if (date > dueDate) {		// if date > dueDate, a book is overdue
-			return 1;
-		}
-	}
-	return 0
-}

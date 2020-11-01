@@ -53,7 +53,6 @@ public:
 
 	// date counter
 	int returnDay();	// returns day (day 1 begins once program starts)
-	bool isOverdue(int date);	// returns 1 if student has overdue books
 
 	
 };
