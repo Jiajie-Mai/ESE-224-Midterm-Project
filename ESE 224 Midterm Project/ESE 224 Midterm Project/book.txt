@@ -1,0 +1,16 @@
+Title: Twilight
+Author: Stephanie Meyer
+Category: Fantasy
+ID: 1
+ISBN: 1111
+Student: John
+StartDate: 1
+ExpirationDate: 2
+Title: Harry Potter and the Sorceror's Stone
+Author: J. K. Rowling
+Category: Fantasy
+ID: 2
+ISBN: 1112
+Student: John
+StartDate: 1
+ExpirationDate: 2
