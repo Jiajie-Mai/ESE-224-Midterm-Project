@@ -1,9 +1,11 @@
+Current Time: 1
 Student Name: John
 Username: AzureDiamond
 Password: hunter2
 Max Copies: 3
 IDs of Borrowed Books: 1 2 
 Length of Borrowing Period (in Days): 33 34 
+Current Time: 1
 Student Name: James
 Username: username
 Password: password

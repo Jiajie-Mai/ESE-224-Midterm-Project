@@ -1,0 +1,3 @@
+Have to copy+paste student in order to compile correctly
+Anytime a person wants to return it logs out
+Anytime a person wants to borrow a book, it's overdue

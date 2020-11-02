@@ -3,10 +3,14 @@
 clock_t t_start = clock();
 
 Student::Student() {
-
+	studentName = "";
+	Username = "";
+	Password = "";
+	maxCopies = 0;
 }
 
 ostream& operator<< (ostream& output, Student& student) { //write to file
+	output << "Current Time: " << student.returnDay() << endl;
 	output << "Student Name: " << student.getStudentName() << endl;
 	output << "Username: " << student.getUsername() << endl;
 	output << "Password: " << student.getPassword() << endl;
@@ -83,7 +87,6 @@ istream& operator>> (istream& input, Student& student) { // read from file
 	student.setPassword(password);
 	student.setMaxCopies(maxCopies);
 	return input;
-
 }
 
 string Student::getStudentName() {
@@ -125,25 +128,26 @@ void Student::setBorrowingPeriod(int date) {
 	borrowingPeriod.push_back(date);
 }
 
-// authentication functions
-bool Student::authenticate(string Username, string Password) {
-	return (this->Username == Username && this->Password == Password);
-}
-void divider(int size) {
-	for (int i = 0; i < size; i++) {
-		cout << "-";
-	}
-}
-void Student::displayMenu() {
-	divider(50);
-	cout << endl << "-             Welcome to My Library!             -" << endl;
-	divider(50);
-	cout << endl << endl << "Welcome back, Student" << endl << endl << "Please choose:" << endl << "\t1 -- Borrow Books" << endl << "\t3 -- Return Books" << endl << "\t0 -- Log Out" << endl;
-}
-
 int Student::returnDay() { // returns day
 	clock_t t_difference = clock() - t_start; // this is used to find current time
 	float seconds = t_difference / CLOCKS_PER_SEC;
 	int day = seconds / 5 + 1; ;// We add 1 because the day starts at Day 1
 	return day;
+}
+
+void Student::returnBook(int ID) {
+	bool bookExists = false;
+	int index = 0;
+	borrowed.begin();
+	for (int id : borrowed) {
+		if (id == ID) {
+			borrowed.erase(borrowed.begin() + index); // remove the id of book if it is the correct one
+			borrowingPeriod.erase(borrowingPeriod.begin() + index); // remove the appropriate deadline
+			bookExists = true;
+		}
+		index++;
+	}
+	if (!bookExists) {
+		cout << "The book does not exist." << endl;
+	}
 }

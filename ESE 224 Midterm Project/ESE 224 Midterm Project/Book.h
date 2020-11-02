@@ -41,8 +41,5 @@ public:
 
 	friend ostream& operator<< (ostream& output, Book& book);
 	friend istream& operator>> (istream& input, Book& book);
-
-
-
 };
 
