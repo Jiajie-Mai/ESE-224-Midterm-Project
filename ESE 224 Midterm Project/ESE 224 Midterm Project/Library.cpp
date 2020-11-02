@@ -116,3 +116,19 @@ void LMS::createNewStudent() {
 	newStudent.setMaxCopies(maxCopies);
 	addStudent(newStudent);
 }
+
+Book LMS::recommendBooks(Book Book) {
+	while (1) {
+		int vector_size = library.size();
+		int rand_index = rand_int(0, vector_size-1);
+		if ((library[rand_index].getCategory() == Book.getCategory()) && (library[rand_index].getISBN() != Book.getISBN())) { // if they're not the same book
+			return library[rand_index];
+		}
+	}
+	
+}
+
+int LMS::rand_int(int a, int b) { // random int from a to b
+	srand(1234);
+	return rand() % (b - a + 1) + a;
+}

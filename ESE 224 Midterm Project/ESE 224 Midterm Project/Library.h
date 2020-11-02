@@ -4,9 +4,8 @@
 #include <iostream>
 #include <string>
 #include <fstream>
-#include <iostream>
-#include <string>
 #include <vector>
+#include <cstdlib>
 using namespace std;
 class LMS
 {
@@ -26,7 +25,7 @@ public:
 
 	void printLibrary(); // for testing, prints library
 	void printStudents(); // for testing, prints students
-public:
-	void findBook(string title);
+	Book recommendBooks(Book Book);
+	int rand_int(int a, int b);
 };
 

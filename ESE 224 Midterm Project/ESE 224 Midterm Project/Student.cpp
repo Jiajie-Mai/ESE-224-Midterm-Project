@@ -118,7 +118,6 @@ void Student::setPassword(string Password) {
 void Student::setMaxCopies(int maxCopies) {
 	this->maxCopies = maxCopies;
 }
-
 void Student::setBorrowed(int ID) {
 	borrowed.push_back(ID);
 }
@@ -147,5 +146,4 @@ int Student::returnDay() { // returns day
 	float seconds = t_difference / CLOCKS_PER_SEC;
 	int day = seconds / 5 + 1; ;// We add 1 because the day starts at Day 1
 	return day;
-}
 }
