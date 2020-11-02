@@ -16,6 +16,7 @@ private:
 public:
 	//constructors
 	Book();
+	Book(int ISBN, string Title, string Author, string Category, int ID, string studentName, int startDate, int expirationDate);
 
 	// accessor functions
 	int getISBN();

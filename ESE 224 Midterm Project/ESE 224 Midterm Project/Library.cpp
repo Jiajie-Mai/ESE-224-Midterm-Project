@@ -131,4 +131,44 @@ Book LMS::recommendBooks(Book Book) {
 int LMS::rand_int(int a, int b) { // random int from a to b
 	srand(1234);
 	return rand() % (b - a + 1) + a;
+
+bool LMS::bookAvaliable(int ID) {
+	bool avaliable = false;
+	library.begin();
+	for (Book b : library) {
+		if (b.getID() == ID) {
+			return true;
+		}
+	}
+	return avaliable;
+}
+
+bool LMS::copiesAvaliable(int ISBN) {
+	bool avaliable = false;
+	for (Book b : library) {
+		if (b.getISBN() == ISBN) {
+			return true;
+		}
+	}
+	return avaliable;
+}
+
+bool LMS::overdue(int ID) {
+
+}
+
+void LMS::borrowBook(int ISBN) {
+	int index = 0;
+	library.begin();
+	for (Book b : library) {
+		if (b.getISBN() == ISBN) {
+			library.erase(library.begin() + index);
+			break;
+		}
+		index++;
+	}
+}
+
+void LMS::returnBook(int ISBn) {
+
 }
