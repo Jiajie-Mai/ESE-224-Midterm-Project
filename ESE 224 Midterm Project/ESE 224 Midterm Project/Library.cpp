@@ -117,43 +117,18 @@ void LMS::createNewStudent() {
 	addStudent(newStudent);
 }
 
-bool LMS::bookAvaliable(int ID) {
-	bool avaliable = false;
-	library.begin();
-	for (Book b : library) {
-		if (b.getID() == ID) {
-			return true;
+Book LMS::recommendBooks(Book Book) {
+	while (1) {
+		int vector_size = library.size();
+		int rand_index = rand_int(0, vector_size-1);
+		if ((library[rand_index].getCategory() == Book.getCategory()) && (library[rand_index].getISBN() != Book.getISBN())) { // if they're not the same book
+			return library[rand_index];
 		}
 	}
-	return avaliable;
+	
 }
 
-bool LMS::copiesAvaliable(int ISBN) {
-	bool avaliable = false;
-	for (Book b : library) {
-		if (b.getISBN() == ISBN) {
-			return true;
-		}
-	}
-	return avaliable;
-}
-
-bool LMS::overdue(int ID) {
-
-}
-
-void LMS::borrowBook(int ISBN) {
-	int index = 0;
-	library.begin();
-	for (Book b : library) {
-		if (b.getISBN() == ISBN) {
-			library.erase(library.begin() + index);
-			break;
-		}
-		index++;
-	}
-}
-
-void LMS::returnBook(int ISBn) {
-
+int LMS::rand_int(int a, int b) { // random int from a to b
+	srand(1234);
+	return rand() % (b - a + 1) + a;
 }

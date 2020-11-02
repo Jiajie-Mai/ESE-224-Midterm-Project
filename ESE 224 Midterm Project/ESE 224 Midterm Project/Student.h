@@ -1,6 +1,5 @@
 #pragma once
 #include "Book.h"
-#include "Library.h"
 #include <iostream>
 #include <string>
 #include <vector>
@@ -42,16 +41,19 @@ public:
 	// file operations
 	friend ostream& operator<< (ostream& output, Student& student);
 	friend istream& operator>> (istream& input, Student& student);
+	
 
 	// authentication function, returns boolean for if the authentication is successful
 	bool authenticate(string Username, string Password);
 	void displayMenu();
 
 	// student operations
-	void borrowBook(LMS library, int ISBN);
-	void returnBook(LMS library, int ISBN);
+	void borrowBook();
+	void returnBook();
 
 	// date counter
 	int returnDay();	// returns day (day 1 begins once program starts)
+
+	
 };
 

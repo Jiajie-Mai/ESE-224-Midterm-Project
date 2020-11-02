@@ -118,7 +118,6 @@ void Student::setPassword(string Password) {
 void Student::setMaxCopies(int maxCopies) {
 	this->maxCopies = maxCopies;
 }
-
 void Student::setBorrowed(int ID) {
 	borrowed.push_back(ID);
 }
@@ -140,19 +139,6 @@ void Student::displayMenu() {
 	cout << endl << "-             Welcome to My Library!             -" << endl;
 	divider(50);
 	cout << endl << endl << "Welcome back, Student" << endl << endl << "Please choose:" << endl << "\t1 -- Borrow Books" << endl << "\t3 -- Return Books" << endl << "\t0 -- Log Out" << endl;
-}
-
-void Student::borrowBook(LMS library, int ISBN) {
-	if (!library.copiesAvaliable(ISBN)) {
-		cout << "This book is either currently being borrowed or does not exist!" << endl;
-	}
-	else {
-		library.borrowBook(ISBN);
-	}
-}
-
-void Student::returnBook(LMS library, int ISBN) {
-
 }
 
 int Student::returnDay() { // returns day

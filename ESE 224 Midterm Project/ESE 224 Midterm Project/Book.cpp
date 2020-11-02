@@ -6,17 +6,6 @@ Book::Book() {
 	
 }
 
-Book::Book(int ISBN, string Title, string Author, string Category, int ID, string studentName, int startDate, int expirationDate) {
-	this->ISBN = ISBN;
-	this->Title = Title;
-	this->Author = Author;
-	this->Category = Category;
-	this->ID = ID;
-	this->studentName = studentName;
-	this->startDate = startDate;
-	this->expirationDate = expirationDate;
-}
-
 
 ostream& operator << (ostream& output, Book& book) { // used to output file from system
 	output << "Title: " << book.getTitle() << endl;
