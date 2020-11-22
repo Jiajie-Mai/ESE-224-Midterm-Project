@@ -3,6 +3,7 @@
 #include <iostream>
 
 LMS::LMS() {
+	studentLoggedOn = -1;
 	loggedIn = false;
 }
 
@@ -139,13 +140,29 @@ int LMS::rand_int(int a, int b) { // random int from a to b
 	return rand() % (b - a + 1) + a;
 }
 
+bool LMS::available(int ISBN) {
+	vector<int> ids;
+	for (Book book : library) {
+		if (book.getISBN() == ISBN) {
+			ids.push_back(book.getID());
+		}
+	}
+	for (Student student : students) {
+		for (int bookId : student.getBorrowed()) {
+			for (int id : ids) {
+				if (id == bookId) {
+
+				}
+			}
+		}
+	}
+}
+
 bool overdue(Student student) {
 	bool overdue = false;
-	cout << "hi" << endl;
 	int current_day = student.returnDay();
 	for (int day : student.getBorrowingPeriod()) {
-		cout << "hi" << endl;
-		cout << current_day << day << endl;
+		cout << "Current day: " << current_day << " Day dute: " << day << endl;
 		if (current_day > day) {
 			return true;
 		}
@@ -154,10 +171,11 @@ bool overdue(Student student) {
 }
 
 void LMS::borrowBook(Student student, int ISBN) {
-	if (overdue) {
+	cout << "Borrowed: " << student.getBorrowed().size() << " Max: " << student.getMaxCopies() << endl;
+	if (!overdue) {
 		cout << "Student " << student.getStudentName() << " has some books that are overdue." << endl;
 	}
-	else if (student.getBorrowed().size() <= student.getMaxCopies()) {
+	else if (student.getBorrowed().size() >= student.getMaxCopies()) {
 		cout << "Student " << student.getStudentName() << " has too many books borrowed." << endl;
 	}
 	else {
@@ -204,70 +222,83 @@ void divider(int size) {
 	}
 }
 
-void LMS::displayMenu() {
+bool isNum(string input) {
+	for (int i = 0; i < input.length(); i++) {
+		if (!isdigit(input[i])) {
+			cout << "\nInvalid Input!\n" << endl;
+			return false;
+		}
+	}
+	return true;
+}
+
+void LMS::menuInput(int i) {
+	string input;
 	int counter = 0;
+	switch (i) {
+	case 1:
+		for (Student student : students) {
+			if (counter == studentLoggedOn) {
+				cout << student << endl;
+				break;
+			}
+			else {
+				counter++;
+			}
+		}
+		cout << studentLoggedOn << endl;
+		break;
+	case 2:
+		cout << "Input an ISBN in order to borrow it: ";
+		cin >> input;
+		if (isNum(input)) {
+			for (Student student : students) {
+				if (counter == studentLoggedOn) {
+					borrowBook(student, stoi(input));
+					break;
+				}
+				else {
+					counter++;
+				}
+			}
+		}
+		break;
+	case 3:
+		cout << "Input an ID in order to return it: ";
+		cin >> input;
+		if (isNum(input)) {
+			for (Student student : students) {
+				if (counter == studentLoggedOn) {
+					returnBook(student, stoi(input));
+					break;
+				}
+				else {
+					counter++;
+				}
+			}
+		}
+		break;
+	case 0:
+		logOut();
+		break;
+	default:
+		cout << "\nInvalid Input!\n" << endl;
+		break;
+	}
+}
+
+void LMS::displayMenu() {
 	students.begin();
 	if (loggedIn) {
-		int input;
+		string input;
 		divider(50);
 		cout << endl << "-             Welcome to My Library!             -" << endl;
 		divider(50);
 		cout << endl << endl << "Welcome back, Student" << endl << endl << "Please choose:" << endl << "\t1 -- User Information\n\t2 -- Borrow Books" << endl << "\t3 -- Return Books" << endl << "\t0 -- Log Out" << endl;
-		cin.clear();
-		cin.ignore(256, '\n');
 		cin >> input;
-		while (cin.fail()) {
-			cout << "Invalid Input" << endl;
-			cin.clear();
-			cin.ignore(256, '\n');
-			cin >> input;	
-		}
-		switch (input) {
-		case 1:
-			for (Student student : students) {
-				if (counter == studentLoggedOn) {
-					cout << student << endl;
-					break;
-				}
-				else {
-					counter++;
-				}
-			}
-			cout << studentLoggedOn << endl;
-			break;
-		case 2:
-			cout << "Input an ISBN in order to borrow it: ";
-			cin.clear();
-			cin.ignore(256, '\n');
-			cin >> input;
-			for (Student student : students) {
-				if (counter == studentLoggedOn) {
-					borrowBook(student, input);
-					break;
-				}
-				else {
-					counter++;
-				}
-			}
-			break;
-		case 3:
-			cout << "Input an ID in order to return it: ";
-			cin.clear();
-			cin.ignore(256, '\n');
-			cin >> input;
-			for (Student student : students) {
-				if (counter == studentLoggedOn) {
-					returnBook(student, input);
-					break;
-				}
-				else {
-					counter++;
-				}
-			}
-		case 0:
-			logOut();
-		default:
-			break;
+		
+		if (isNum(input)) {
+			menuInput(stoi(input));
 		}
 		displayMenu();
 	}

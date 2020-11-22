@@ -7,7 +7,6 @@ Student::Student() {
 }
 
 ostream& operator<< (ostream& output, Student& student) { //write to file
-	output << "Day: " << student.returnDay() << endl;
 	output << "Student Name: " << student.getStudentName() << endl;
 	output << "Username: " << student.getUsername() << endl;
 	output << "Password: " << student.getPassword() << endl;
@@ -139,8 +138,12 @@ void Student::returnBook(int ID) {
 	borrowed.begin();
 	for (int id : borrowed) {
 		if (id == ID) {
+			// doesn't erase
+			cout << index << endl;
 			borrowed.erase(borrowed.begin() + index); // remove the id of book if it is the correct one
 			borrowingPeriod.erase(borrowingPeriod.begin() + index); // remove the appropriate deadline
+			maxCopies++;
+			cout << "Returned book with an ID of " << ID << endl;
 			bookExists = true;
 		}
 		index++;

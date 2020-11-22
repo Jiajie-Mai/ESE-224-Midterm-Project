@@ -31,11 +31,13 @@ public:
 	Book recommendBooks(Book Book);
 	int rand_int(int a, int b);
 
+	bool available(int ISBN);
 	void borrowBook(Student student, int ISBN);
 	void returnBook(Student student, int ID);
 
 	void userAuthentication(string username, string password); // identifies if a student exists with given parameters
 	void logOut(); // logs out of current user
 	void displayMenu(); // display prompt
+	void menuInput(int i);
 };
 

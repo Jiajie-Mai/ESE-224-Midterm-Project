@@ -1,5 +1,8 @@
-﻿  Student.cpp
-D:\Documents\GitHub\ESE-224-Midterm-Project\ESE 224 Midterm Project\ESE 224 Midterm Project\Student.cpp(131,16): warning C4244: 'initializing': conversion from 'clock_t' to 'float', possible loss of data
-D:\Documents\GitHub\ESE-224-Midterm-Project\ESE 224 Midterm Project\ESE 224 Midterm Project\Student.cpp(132,10): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-D:\Documents\GitHub\ESE-224-Midterm-Project\ESE 224 Midterm Project\ESE 224 Midterm Project\Student.cpp(139,10): warning C4834: discarding return value of function with 'nodiscard' attribute
+﻿  Library.cpp
+D:\Documents\GitHub\ESE-224-Midterm-Project\ESE 224 Midterm Project\ESE 224 Midterm Project\Library.cpp(47,34): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\Documents\GitHub\ESE-224-Midterm-Project\ESE 224 Midterm Project\ESE 224 Midterm Project\Library.cpp(58,31): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\Documents\GitHub\ESE-224-Midterm-Project\ESE 224 Midterm Project\ESE 224 Midterm Project\Library.cpp(129,35): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\Documents\GitHub\ESE-224-Midterm-Project\ESE 224 Midterm Project\ESE 224 Midterm Project\Library.cpp(157,14): warning C4551: function call missing argument list
+D:\Documents\GitHub\ESE-224-Midterm-Project\ESE 224 Midterm Project\ESE 224 Midterm Project\Library.cpp(273,10): warning C4834: discarding return value of function with 'nodiscard' attribute
+D:\Documents\GitHub\ESE-224-Midterm-Project\ESE 224 Midterm Project\ESE 224 Midterm Project\Library.cpp(86): warning C4715: 'LMS::findBook': not all control paths return a value
   ESE 224 Midterm Project.vcxproj -> D:\Documents\GitHub\ESE-224-Midterm-Project\ESE 224 Midterm Project\x64\Debug\ESE 224 Midterm Project.exe
