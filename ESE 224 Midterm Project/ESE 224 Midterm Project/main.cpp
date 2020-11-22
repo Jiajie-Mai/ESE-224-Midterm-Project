@@ -15,7 +15,6 @@ void initialize() {
 	LMS Library;
 	Library.readFiles();
 	Library.printStudents();
-	Library.printStudents();
 	Library.writeFiles();
 	Library.displayMenu();
 }
