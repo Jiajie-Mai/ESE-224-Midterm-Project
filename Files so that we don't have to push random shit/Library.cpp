@@ -140,7 +140,7 @@ int LMS::rand_int(int a, int b) { // random int from a to b
 	return rand() % (b - a + 1) + a;
 }
 
-bool LMS::available(int ISBN) {
+int LMS::available(int ISBN) {
 	vector<int> ids;
 	for (Book book : library) {
 		if (book.getISBN() == ISBN) {
@@ -149,12 +149,18 @@ bool LMS::available(int ISBN) {
 	}
 	for (Student student : students) {
 		for (int bookId : student.getBorrowed()) {
-			for (int id : ids) {
-				if (id == bookId) {
-
+			for (int index = 0; index < ids.size(); index++) {
+				if (ids[index] == bookId) {
+					ids.erase(ids.begin() + index);
 				}
 			}
 		}
+	}
+	if (ids.size() > 0) {
+		return ids[0];
+	}
+	else {
+		return -1;
 	}
 }
 
@@ -179,9 +185,15 @@ void LMS::borrowBook(Student student, int ISBN) {
 		cout << "Student " << student.getStudentName() << " has too many books borrowed." << endl;
 	}
 	else {
-		int deadline = student.returnDay() + 30;
-		student.setBorrowed(ISBN);
-		student.setBorrowingPeriod(deadline);
+		int isAvailable = available(ISBN);
+		if (isAvailable != -1) {
+			int deadline = student.returnDay() + 30;
+			student.setBorrowed(isAvailable);
+			student.setBorrowingPeriod(deadline);
+		}
+		else {
+			cout << "\nThis book does not exist or is currently not available to be borrowed.\n" << endl;
+		}
 	}
 }
 

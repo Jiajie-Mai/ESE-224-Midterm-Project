@@ -31,7 +31,7 @@ public:
 	Book recommendBooks(Book Book);
 	int rand_int(int a, int b);
 
-	bool available(int ISBN);
+	int available(int ISBN);
 	void borrowBook(Student student, int ISBN);
 	void returnBook(Student student, int ID);
 
