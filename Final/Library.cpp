@@ -11,11 +11,11 @@ void Library::search(int key, string data) {
 void Library::userAuthentication(string username, string password) {
 	int index = 0;
 	if (!loggedIn) {
-		for (User user : users) {
-			if (user.getUsername() == username && user.getPassword() == password) {
+		for (Student student : students) {
+			if (student.getUsername() == username && student.getPassword() == password) {
 				cout << "Log in successful." << endl;
 				loggedIn = true;
-				userLoggedOn = index;
+				userIndex = index;
 				break;
 			}
 			index++;
@@ -106,7 +106,6 @@ void Library::menuInput(int i) {
 }
 
 void Library::displayMenu() {
-	users.begin();
 	if (loggedIn) {
 		string input;
 		divider(50);
@@ -128,4 +127,41 @@ void Library::displayMenu() {
 		cin >> password;
 		userAuthentication(username, password);
 	}
+}
+
+void Library::addBooks() {
+}
+
+void Library::deleteBook() {
+
+}
+
+void Library::searchUsers() {
+
+}
+
+// needs an update
+void Library::addUser() {
+	cout << "Type:\n\t1-Student\n\t2-Teacher\n\t3-Librarian" << endl;
+	string input;
+	string username, password;
+	cin >> input;
+	if (isNum(input)) {
+		switch (stoi(input)) {
+		case 1:
+			cout << "Input username" << endl;
+			cin >> username;
+			cout << "Input password" << endl;
+			cin >> password;
+			Student student;
+			student.setUsername(username);
+			student.setPassword(password);
+			students.push_back(student);
+			break;
+		}
+	}
+}
+
+void Library::deleteUser() {
+
 }

@@ -5,7 +5,7 @@
 using namespace std;
 class Reader : public User
 {
-private:
+protected:
 	int maxCopies;
 	int maxBorrowingPeriod;
 	int penalties;
