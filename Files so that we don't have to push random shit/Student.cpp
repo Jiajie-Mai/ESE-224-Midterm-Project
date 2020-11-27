@@ -137,7 +137,6 @@ bool Student::returnBook(int ID) {
 	int vectorSize = borrowed.size();
 	for (int i = 0; i < vectorSize; i++) {
 		if (borrowed[i] == ID) {
-			cout << i << endl;
 			borrowed.erase(borrowed.begin() + i); // remove the id of book if it is the correct one
 			borrowingPeriod.erase(borrowingPeriod.begin() + index); // remove the appropriate deadline
 			maxCopies++;

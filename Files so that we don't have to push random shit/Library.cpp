@@ -157,10 +157,8 @@ int LMS::rand_int(int a, int b) { // random int from a to b
 
 int LMS::available(int ISBN) {
 	vector<Book> borrowedBooks;
-	//vector<int> ids;
 	for (Book book : library) {
 		if (book.getISBN() == ISBN) {
-			//ids.push_back(book.getID());
 			borrowedBooks.push_back(book);
 		}
 	}
@@ -169,22 +167,6 @@ int LMS::available(int ISBN) {
 			return borrowedBooks[i].getID(); // returns ID of book
 		}
 	}
-	// This is unnecessary. Each book shows who is currently borrowing it.
-	/*
-	for (Student student : students) {
-		for (int bookId : student.getBorrowed()) {
-			for (int index = 0; index < ids.size(); index++) {
-				if (ids[index] == bookId) {
-					ids.erase(ids.begin() + index);
-				}
-			}
-		}
-	}
-	
-	if (ids.size() > 0) {
-		return ids[0];
-	}
-	*/
 	return -1;
 }
 
@@ -211,11 +193,16 @@ void LMS::borrowBook(Student student, int ISBN) {
 	else {
 		int isAvailable = available(ISBN); // ID of book that is available
 		if (isAvailable != -1) {
-			int deadline = student.returnDay() + 30;
+			int currentDay = student.returnDay();
+			int deadline = currentDay + 30;
 			student.setBorrowed(isAvailable);
 			student.setBorrowingPeriod(deadline);
 			updateStudent(student);
 			library[findBookIndex(isAvailable)].setStudent(student.getStudentName());
+			library[findBookIndex(isAvailable)].setStartDate(currentDay);
+			library[findBookIndex(isAvailable)].setExpirationDate(deadline);
+			writeFiles();
+
 
 		}
 		else {
@@ -226,9 +213,11 @@ void LMS::borrowBook(Student student, int ISBN) {
 
 void LMS::returnBook(Student student, int ID) {
 	if (student.returnBook(ID)) {
-		int BookIndex = findBookIndex(ID);
-		library[BookIndex].setStudent("No Owner"); 
+		library[findBookIndex(ID)].setStudent("No Owner");
+		library[findBookIndex(ID)].setStartDate(-1);
+		library[findBookIndex(ID)].setExpirationDate(-1);
 		updateStudent(student);
+		writeFiles();
 	}
 }
 
