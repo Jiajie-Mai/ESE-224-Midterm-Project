@@ -132,23 +132,20 @@ int Student::returnDay() { // returns day
 	return day;
 }
 
-void Student::returnBook(int ID) {
-	bool bookExists = false;
+bool Student::returnBook(int ID) {
 	int index = 0;
-	borrowed.begin();
-	for (int id : borrowed) {
-		if (id == ID) {
-			// doesn't erase
-			cout << index << endl;
-			borrowed.erase(borrowed.begin() + index); // remove the id of book if it is the correct one
+	int vectorSize = borrowed.size();
+	for (int i = 0; i < vectorSize; i++) {
+		if (borrowed[i] == ID) {
+			cout << i << endl;
+			borrowed.erase(borrowed.begin() + i); // remove the id of book if it is the correct one
 			borrowingPeriod.erase(borrowingPeriod.begin() + index); // remove the appropriate deadline
 			maxCopies++;
 			cout << "Returned book with an ID of " << ID << endl;
-			bookExists = true;
+			return true;
 		}
 		index++;
 	}
-	if (!bookExists) {
-		cout << "The book does not exist." << endl;
-	}
+	cout << "The book does not exist." << endl;
+	return false;
 }

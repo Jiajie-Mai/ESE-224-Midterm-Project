@@ -85,6 +85,13 @@ Book LMS::findBook(int ID) { // finds book based on ID
 	}
 }
 
+int LMS::findBookIndex(int ID) { // finds book index based on ID
+	for (int i = 0; i < library.size(); i++) {
+		if (library[i].getID() == ID)
+			return i;
+	}
+}
+
 void LMS::removeBook(int ID) { // removes book from library based on ID
 	for (int i = 0; i < library.size(); i++) {
 		if (library[i].getID() == ID) {
@@ -101,6 +108,14 @@ void LMS::removeStudent(string username) {
 	for (int i = 0; i < students.size(); i++) {
 		if (students[i].getUsername() == username) {
 			students.erase(students.begin() + i);
+		}
+	}
+}
+
+void LMS::updateStudent(Student student) {
+	for (int i = 0; i < students.size(); i++) {
+		if (students[i].getUsername() == student.getUsername()) {
+			students[i] = student;
 		}
 	}
 }
@@ -141,12 +156,21 @@ int LMS::rand_int(int a, int b) { // random int from a to b
 }
 
 int LMS::available(int ISBN) {
-	vector<int> ids;
+	vector<Book> borrowedBooks;
+	//vector<int> ids;
 	for (Book book : library) {
 		if (book.getISBN() == ISBN) {
-			ids.push_back(book.getID());
+			//ids.push_back(book.getID());
+			borrowedBooks.push_back(book);
 		}
 	}
+	for (int i = 0; i < borrowedBooks.size(); i++) {
+		if (borrowedBooks[i].getStudent() == "No Owner") {
+			return borrowedBooks[i].getID(); // returns ID of book
+		}
+	}
+	// This is unnecessary. Each book shows who is currently borrowing it.
+	/*
 	for (Student student : students) {
 		for (int bookId : student.getBorrowed()) {
 			for (int index = 0; index < ids.size(); index++) {
@@ -156,12 +180,12 @@ int LMS::available(int ISBN) {
 			}
 		}
 	}
+	
 	if (ids.size() > 0) {
 		return ids[0];
 	}
-	else {
-		return -1;
-	}
+	*/
+	return -1;
 }
 
 bool overdue(Student student) {
@@ -185,11 +209,14 @@ void LMS::borrowBook(Student student, int ISBN) {
 		cout << "Student " << student.getStudentName() << " has too many books borrowed." << endl;
 	}
 	else {
-		int isAvailable = available(ISBN);
+		int isAvailable = available(ISBN); // ID of book that is available
 		if (isAvailable != -1) {
 			int deadline = student.returnDay() + 30;
 			student.setBorrowed(isAvailable);
 			student.setBorrowingPeriod(deadline);
+			updateStudent(student);
+			library[findBookIndex(isAvailable)].setStudent(student.getStudentName());
+
 		}
 		else {
 			cout << "\nThis book does not exist or is currently not available to be borrowed.\n" << endl;
@@ -198,7 +225,11 @@ void LMS::borrowBook(Student student, int ISBN) {
 }
 
 void LMS::returnBook(Student student, int ID) {
-	student.returnBook(ID);
+	if (student.returnBook(ID)) {
+		int BookIndex = findBookIndex(ID);
+		library[BookIndex].setStudent("No Owner"); 
+		updateStudent(student);
+	}
 }
 
 void LMS::userAuthentication(string username, string password) {
@@ -224,6 +255,7 @@ void LMS::userAuthentication(string username, string password) {
 }
 
 void LMS::logOut() {
+	LMS::writeFiles();
 	cout << "Logging Out.." << endl;
 	loggedIn = false;
 }

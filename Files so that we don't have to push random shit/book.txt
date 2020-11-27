@@ -3,9 +3,9 @@ Author: Stephanie Meyer
 Category: Fantasy
 ID: 1
 ISBN: 1111
-Student: John
+Student: No Owner
 StartDate: 1
-ExpirationDate: 2
+ExpirationDate: 100
 Title: Harry Potter and the Sorceror's Stone
 Author: J. K. Rowling
 Category: Fantasy
@@ -13,4 +13,20 @@ ID: 2
 ISBN: 1112
 Student: John
 StartDate: 1
-ExpirationDate: 2
+ExpirationDate: 100
+Title: Harry Potter and the Chamber of Secrets
+Author: J. K. Rowling
+Category: Fantasy
+ID: 3
+ISBN: 1113
+Student: James
+StartDate: 1
+ExpirationDate: 100
+Title: Harry Potter and the Prisoner of Azkaban
+Author: J. K. Rowling
+Category: Fantasy
+ID: 4
+ISBN: 1114
+Student: James
+StartDate: 1
+ExpirationDate: 100

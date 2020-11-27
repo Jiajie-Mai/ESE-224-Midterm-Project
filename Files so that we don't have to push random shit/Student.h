@@ -46,6 +46,6 @@ public:
 	int returnDay();	// returns day (day 1 begins once program starts)
 
 	// helper functions for the library
-	void returnBook(int ID);
+	bool returnBook(int ID);
 };
 

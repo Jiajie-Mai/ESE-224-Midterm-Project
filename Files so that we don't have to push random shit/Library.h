@@ -17,6 +17,7 @@ private:
 public:
 	LMS();
 	Book findBook(int ID); // ids are unique (does not work if book does not exist)
+	int findBookIndex(int ID); 
 	void readFiles();	//reads files from book.txt
 	void writeFiles();	//writes files into book.txt
 	void addBook(Book book);	//adds book to library
@@ -25,6 +26,7 @@ public:
 	void createNewStudent();	// Creates a new student by entering in data
 	void addStudent(Student student); //adds student from file to students vector
 	void removeStudent(string username); // removes student based on username
+	void updateStudent(Student student); // updates student's information based on username
 
 	void printLibrary(); // for testing, prints library
 	void printStudents(); // for testing, prints students
