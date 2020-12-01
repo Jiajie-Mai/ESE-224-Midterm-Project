@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 #include <string>
 using namespace std;
 class Book
@@ -20,12 +21,15 @@ public:
 	int getIndex();
 	int getCount();
 	int getFavor();
-	void setISBN();
-	void setTitle();
-	void setAuthor();
-	void setCategory();
-	void setIndex();
-	void setCount();
-	void setFavor();
-};
+	void setISBN(int ISBN);
+	void setTitle(string title);
+	void setAuthor(string author);
+	void setCategory(string category);
+	void setIndex(int index);
+	void setCount(int count);
+	void setFavor(int favor);
 
+
+	friend ostream& operator<< (ostream& output, Book& book);
+	friend istream& operator>> (istream& input, Book& book);
+};

@@ -5,56 +5,109 @@ Book::Book() {
 }
 
 int Book::getISBN() {
-	return 1;
+	return ISBN;
 }
 
 string Book::getTitle() {
-	return "1";
+	return title;
 }
 
 string Book::getAuthor() {
-	return "1";
+	return author;
 }
 
 string Book::getCategory() {
-	return "1";
+	return category;
 }
 
 int Book::getIndex() {
-	return 1;
+	return index;
 }
 
 int Book::getCount() {
-	return 1;
+	return count;
 }
 
 int Book::getFavor() {
-	return 1;
+	return favor;
 }
 
-void Book::setISBN() {
-
+void Book::setISBN(int ISBN) {
+	this->ISBN = ISBN;
 }
 
-void Book::setTitle() {
-
+void Book::setTitle(string title) {
+	this->title = title;
 }
 
-void Book::setAuthor() {
-
+void Book::setAuthor(string author) {
+	this->author = author;
 }
 
-void Book::setCategory() {
-
+void Book::setCategory(string category) {
+	this->category = category;
 }
-void Book::setIndex() {
-
-}
-
-void Book::setCount() {
-
+void Book::setIndex(int index) {
+	this->index = index;
 }
 
-void Book::setFavor() {
-
+void Book::setCount(int count) {
+	this->count = count;
 }
+
+void Book::setFavor(int favor) {
+	this->favor = favor;
+}
+
+ostream& operator << (ostream& output, Book& book) { // used to output file from system
+	output << "ISBN: " << book.getISBN() << endl;
+	output << "Title: " << book.getTitle() << endl;
+	output << "Author: " << book.getAuthor() << endl;
+	output << "Category: " << book.getCategory() << endl;
+	output << "Index: " << book.getIndex() << endl;
+	output << "Count: " << book.getCount() << endl;
+	output << "Favor: " << book.getFavor() << endl;
+	return output;
+}
+
+istream& operator >> (istream& input, Book& book) { // used to input file into system
+	string title, author, category;
+	int isbn, index, count, favor;
+	string empty;
+
+	getline(input, empty, ':');					//we're not retrieving a string, so they >> operator is enough
+	input >> isbn;
+
+	getline(input, empty, ':');					//we only want the title, so we remove the other parts of the line
+	getline(input, title);						//we repeat this for every string
+	title.erase(title.begin());					// first letter is an empty space, so we remove it
+
+	getline(input, empty, ':');
+	getline(input, author);
+	author.erase(author.begin());
+
+	getline(input, empty, ':');
+	getline(input, category);
+	category.erase(category.begin());
+
+	getline(input, empty, ':');					//we're not retrieving a string, so they >> operator is enough
+	input >> index;
+
+	getline(input, empty, ':');					//we're not retrieving a string, so they >> operator is enough
+	input >> count;
+
+	getline(input, empty, ':');					//we're not retrieving a string, so they >> operator is enough
+	input >> favor;
+
+
+								
+	book.setISBN(isbn);
+	book.setTitle(title);
+	book.setAuthor(author);
+	book.setCategory(category);
+	book.setIndex(index);
+	book.setCount(count);
+	book.setFavor(favor);
+	return input;
+}
+
