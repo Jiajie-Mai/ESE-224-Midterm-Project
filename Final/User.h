@@ -17,5 +17,9 @@ public:
 	void setUsername(string username);
 	void setPassword(string password);
 	int displayMenu();
+
+	// file operations
+	friend ostream& operator<< (ostream& output, User& user);
+	friend istream& operator>> (istream& input, User& user);
 };
 

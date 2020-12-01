@@ -8,6 +8,68 @@ void Library::search(int key, string data) {
 
 }
 
+void Library::addBook(Book book) { //adds book to library
+	books.push_back(book);
+}
+
+void Library::removeBook(int index) { // removes book from library based on index
+	for (int i = 0; i < books.size(); i++) {
+		if (books[i].getIndex() == index) {
+			books.erase(books.begin() + i);
+		}
+	}
+}
+
+
+void Library::addCopy(Copy copy) { //adds copy to library
+	copies.push_back(copy);
+}
+
+void Library::removeCopy(int ID) { // removes copy from library based on ID
+	for (int i = 0; i < books.size(); i++) {
+		if (copies[i].getID() == ID) {
+			copies.erase(copies.begin() + i);
+		}
+	}
+}
+
+void Library::addStudent(Student student) {
+	students.push_back(student);
+}
+
+void Library::removeStudent(string username) {
+	for (int i = 0; i < students.size(); i++) {
+		if (students[i].getUsername() == username) {
+			students.erase(students.begin() + i);
+		}
+	}
+}
+
+void Library::addTeacher(Teacher teacher) {
+	teachers.push_back(teacher);
+}
+
+void Library::removeTeacher(string username) {
+	for (int i = 0; i < students.size(); i++) {
+		if (teachers[i].getUsername() == username) {
+			teachers.erase(teachers.begin() + i);
+		}
+	}
+}
+
+void Library::addLibrarian(Librarian librarian) {
+	librarians.push_back(librarian);
+}
+
+void Library::removeLibrarian(string username) {
+	for (int i = 0; i < students.size(); i++) {
+		if (librarians[i].getUsername() == username) {
+			librarians.erase(librarians.begin() + i);
+		}
+	}
+}
+
+
 void Library::userAuthentication(string username, string password) {
 	int index = 0;
 	if (!loggedIn) {
@@ -163,5 +225,143 @@ void Library::addUser() {
 }
 
 void Library::deleteUser() {
+
+}
+
+
+void Library::readFiles() { 
+	ifstream fin1;
+	fin1.open("book.txt");
+	if (fin1.fail()) {
+		cerr << "Cannot find file book.txt." << endl;
+		exit(1);
+	}
+	while (!fin1.eof()) {
+		Book temp;
+		fin1 >> temp;
+		if (!temp.getTitle().empty()) // if the title is not empty ( meaning we didn't read an empty line)
+			addBook(temp);
+	}
+
+	fin1.close();
+
+	ifstream fin5;
+	fin5.open("copy.txt");
+	if (fin5.fail()) {
+		cerr << "Cannot find file copy.txt." << endl;
+		exit(1);
+	}
+	while (!fin5.eof()) {
+		Copy copy;
+		fin5 >> copy;
+		if (!copy.getReader().empty()) 
+			addCopy(copy);
+	}
+
+	fin1.close();
+
+	ifstream fin2;
+	fin2.open("student.txt");
+	if (fin2.fail()) {
+		cerr << "Cannot find file student.txt." << endl;
+		exit(1);
+	}
+	while (!fin2.eof()) {
+		Student student;
+		fin2 >> student;
+		if (!student.getUsername().empty())
+			addStudent(student);
+	}
+	fin2.close();
+
+	ifstream fin3;
+	fin3.open("teacher.txt");
+	if (fin3.fail()) {
+		cerr << "Cannot find file teacher.txt." << endl;
+		exit(1);
+	}
+	while (!fin3.eof()) {
+		Teacher teacher;
+		fin3 >> teacher;
+		if (!teacher.getUsername().empty())
+			addTeacher(teacher);
+	}
+	fin3.close();
+
+	ifstream fin4;
+	fin4.open("librarian.txt");
+	if (fin4.fail()) {
+		cerr << "Cannot find file librarian.txt." << endl;
+		exit(1);
+	}
+	while (!fin4.eof()) {
+		Librarian librarian;
+		fin4 >> librarian;
+		if (!librarian.getUsername().empty())
+			addLibrarian(librarian);
+	}
+	fin4.close();
+}
+void Library::writeFiles() {
+	ofstream fout1;
+	fout1.open("book.txt");
+	if (fout1.fail()) {
+		cerr << "Cannot find file book.txt." << endl;
+		exit(1);
+	}
+	int vector_size = books.size();
+	for (int i = 0; i < vector_size; i++) {
+		fout1 << books[i];
+	}
+	fout1.close();
+
+	ofstream fout5;
+	fout5.open("copy.txt");
+	if (fout5.fail()) {
+		cerr << "Cannot find file copy.txt." << endl;
+		exit(1);
+	}
+	vector_size = copies.size();
+	for (int i = 0; i < vector_size; i++) {
+		fout5 << copies[i];
+	}
+	fout5.close();
+
+	ofstream fout2;
+	fout2.open("student.txt");
+	if (fout2.fail()) {
+		cerr << "Cannot find file student.txt." << endl;
+		exit(1);
+	}
+	vector_size = students.size();
+	for (int i = 0; i < vector_size; i++) {
+		fout2 << students[i];
+	}
+	fout2.close();
+
+	ofstream fout3;
+	fout3.open("teacher.txt");
+	if (fout3.fail()) {
+		cerr << "Cannot find file teacher.txt." << endl;
+		exit(1);
+	}
+	vector_size = teachers.size();
+	for (int i = 0; i < vector_size; i++) {
+		fout3 << teachers[i];
+	}
+	fout3.close();
+
+	ofstream fout4;
+	fout4.open("librarian.txt");
+	if (fout4.fail()) {
+		cerr << "Cannot find file librarian.txt." << endl;
+		exit(1);
+	}
+	vector_size = librarians.size();
+	for (int i = 0; i < vector_size; i++) {
+		fout4 << librarians[i];
+	}
+	fout4.close();
+
 
 }
