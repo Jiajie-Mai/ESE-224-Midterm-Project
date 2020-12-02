@@ -1,0 +1,14 @@
+Username: teacher
+Password: password
+Max Copies: 4
+Max Borrowing Period: 50
+IDs of Borrowed Copies: -1 
+Indexes of Reserved Books: -1 
+Penalties: 0
+Username: teacher2
+Password: password
+Max Copies: 4
+Max Borrowing Period: 50
+IDs of Borrowed Copies: -1 
+Indexes of Reserved Books: -1 
+Penalties: 0

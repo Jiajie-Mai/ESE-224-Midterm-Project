@@ -1,32 +1,28 @@
+ISBN: 1111
 Title: Twilight
 Author: Stephanie Meyer
 Category: Fantasy
-ID: 1
-ISBN: 1111
-Student: John
-StartDate: 5
-ExpirationDate: 35
+Index: 1
+Count: 1
+Favor: 0
+ISBN: 1112
 Title: Harry Potter and the Sorceror's Stone
 Author: J. K. Rowling
 Category: Fantasy
-ID: 2
-ISBN: 1112
-Student: John
-StartDate: 9
-ExpirationDate: 39
+Index: 2
+Count: 1
+Favor: 0
+ISBN: 1113
 Title: Harry Potter and the Chamber of Secrets
 Author: J. K. Rowling
 Category: Fantasy
-ID: 3
-ISBN: 1113
-Student: James
-StartDate: 1
-ExpirationDate: 100
+Index: 3
+Count: 1
+Favor: 0
+ISBN: 1114
 Title: Harry Potter and the Prisoner of Azkaban
 Author: J. K. Rowling
 Category: Fantasy
-ID: 4
-ISBN: 1114
-Student: James
-StartDate: 1
-ExpirationDate: 100
+Index: 4
+Count: 1
+Favor: 0
