@@ -80,9 +80,9 @@ ostream& operator << (ostream& output, Copy& copy) { // used to output file from
 	output << "Reader: " << copy.getReader() << endl; // stores reader as username
 	output << "Reserver: " << copy.getReserver() << endl; // stores reserver as username
 	output << "Available: " << copy.getAvailable() << endl;
-	output << "BorrowDate: " << copy.getBorrowDate() << endl;
-	output << "ReserveDate: " << copy.getReserveDate() << endl;
-	output << "ExpirationDate: " << copy.getExpirationDate() << endl;
+	output << "Borrow Date: " << copy.getBorrowDate() << endl;
+	output << "Reserve Date: " << copy.getReserveDate() << endl;
+	output << "Expiration Date: " << copy.getExpirationDate() << endl;
 	return output;
 }
 

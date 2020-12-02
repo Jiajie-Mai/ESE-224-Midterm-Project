@@ -9,11 +9,6 @@ class Copy
 {
 private:
 	int ID;
-	/*
-	Book book;
-	Reader reader;
-	Reader reserver;
-	*/
 	int bookIndex; // refers to book
 	string readerName; // refers to reader
 	string reserverName; // refers to reserver
@@ -23,11 +18,6 @@ private:
 	int expirationDate;
 public:
 	int getID();
-	/* // if you have any idea how to code this, try it
-	Book* getBook();
-	Reader* getReader();
-	Reader* getReserver();
-	*/
 	int getBook();
 	string getReader();
 	string getReserver();

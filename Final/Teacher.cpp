@@ -1,7 +1,8 @@
 #include "Teacher.h"
 
 Teacher::Teacher() {
-
+	maxBorrowingPeriod = 50;
+	maxCopies = 10;
 }
 
 int Teacher::displayMenu() {

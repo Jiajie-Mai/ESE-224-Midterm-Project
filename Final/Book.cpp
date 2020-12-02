@@ -32,6 +32,10 @@ int Book::getFavor() {
 	return favor;
 }
 
+vector<string> Book::getReserveeList() {
+	return reserveeList;
+}
+
 void Book::setISBN(int ISBN) {
 	this->ISBN = ISBN;
 }
@@ -57,6 +61,10 @@ void Book::setCount(int count) {
 
 void Book::setFavor(int favor) {
 	this->favor = favor;
+}
+
+void Book::addReserveeList(string username) {
+	reserveeList.push_back(username);
 }
 
 ostream& operator << (ostream& output, Book& book) { // used to output file from system

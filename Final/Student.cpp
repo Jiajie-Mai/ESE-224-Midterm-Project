@@ -1,7 +1,8 @@
 #include "Student.h"
 
 Student::Student() {
-
+	maxBorrowingPeriod = 30;
+	maxCopies = 5;
 }
 
 int Student::displayMenu() {

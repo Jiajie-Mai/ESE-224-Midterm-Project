@@ -1,7 +1,9 @@
 #include "Reader.h"
 
 Reader::Reader() {
-
+	maxCopies = 4;
+	maxBorrowingPeriod = 30;
+	penalties=0;
 }
 
 int Reader::getMaxCopies() {
@@ -75,7 +77,7 @@ ostream& operator<< (ostream& output, Reader& reader) { //write to file
 	output << "Password: " << reader.getPassword() << endl;
 	output << "Max Copies: " << reader.getMaxCopies() << endl;
 	output << "Max Borrowing Period: " << reader.getMaxBorrowingPeriod() << endl;
-	output << "IDs of Borrowed Books: ";
+	output << "IDs of Borrowed Copies: ";
 	for (int i = 0; i < reader.getBorrowed().size(); i++) {
 		output << reader.getBorrowed()[i] << " ";
 	}
