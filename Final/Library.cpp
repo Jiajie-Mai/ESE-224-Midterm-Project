@@ -191,10 +191,7 @@ void Library::menuInput(int i) {
 	int counter = 0;
 	switch (i) {
 	case 1:
-
-		cout << "search" << endl;
-		// search();
-
+		searchBooks();
 		break;
 	case 2:
 		if (userType != 0) {
@@ -216,9 +213,20 @@ void Library::menuInput(int i) {
 			}
 		}
 		else {
-
-			cout << "librarian add book" << endl;
-			// addBook();
+			int ISBN = 0;
+			string title, author, category;
+			cout << "Input the ISBN of the book: " << endl;
+			cin >> input;
+			if (isNum(input)) {
+				ISBN = stoi(input);
+				cout << "Input the title of the book: " << endl;
+				cin >> title;
+				cout << "Input the author of the book: " << endl;
+				cin >> author;
+				cout << "Input the category of the book: " << endl;
+				cin >> category;
+				addBooks(ISBN, title, author, category);
+			}
 
 		}
 
@@ -243,9 +251,11 @@ void Library::menuInput(int i) {
 			}
 		}
 		else {
-
-			cout << "librarian delete book" << endl;
-			// deleteBook();
+			cout << "Input an id of a copy to delete it: " << endl;
+			cin >> input;
+			if (isNum(input)) {
+				deleteBook(stoi(input));
+			}
 		}
 		break;
 	case 4:
@@ -269,8 +279,9 @@ void Library::menuInput(int i) {
 		}
 		else {
 
-			cout << "librarian search users" << endl;
-			// searchUsers();
+			cout << "Input a username to search the user: " << endl;
+			cin >> input;
+			searchUsers(input);
 
 		}
 		break;
@@ -294,32 +305,20 @@ void Library::menuInput(int i) {
 			}
 		}
 		else {
-
-			cout << "librarian add users" << endl;
-			// addUsers();
-
+			addUser();
 		}
 		break;
 	case 6:
 		if (userType != 0) {
 			if (userType == 1) {
-
-				cout << "teacher my information" << endl;
-				// cout << user << endl;
-
+				cout << teachers[userIndex] << endl;
 			}
 			else {
-
-				cout << "student my information" << endl;
-				// cout << user << endl;
-
+				cout << students[userIndex] << endl;
 			}
 		}
 		else {
-
-			cout << "librarian delete users" << endl;
-			// deleteUsers();
-
+			deleteUser();
 		}
 		break;
 	case 7:
@@ -330,24 +329,29 @@ void Library::menuInput(int i) {
 			cin >> input;
 			if (isNum(input) && stoi(input) == 1) {
 				if (userType == 1) {
-
-					cout << "teacher change password" << endl;
-					// setPassword();
-
+					string sure;
+					cout << "Input a new password:" << endl;
+					cin >> input;
+					cout << "Are you sure?\n(1) - yes\n(2) - no" << endl;
+					cin >> sure;
+					if (isNum(sure) && stoi(sure) == 1) {
+						teachers[userIndex].setPassword(input);
+					}
 				}
 				else {
-
-					cout << "student change password" << endl;
-					// setPassword();
-
+					string sure;
+					cout << "Input a new password:" << endl;
+					cin >> input;
+					cout << "Are you sure?\n(1) - yes\n(2) - no" << endl;
+					cin >> sure;
+					if (isNum(sure) && stoi(sure) == 1) {
+						students[userIndex].setPassword(input);
+					}
 				}
 			}
 		}
 		else {
-
-			cout << "librarian my information" << endl;
-			// cout << user << endl;
-
+			cout << librarians[userIndex] << endl;
 		}
 		break;
 	case 8:
@@ -355,17 +359,14 @@ void Library::menuInput(int i) {
 			cout << "\nInvalid Input!\n" << endl;
 		}
 		else {
+			string sure;
 			cout << "Input a new password:" << endl;
 			cin >> input;
 			cout << "Are you sure?\n(1) - yes\n(2) - no" << endl;
-			cin >> input;
-			if (isNum(input) && stoi(input) == 1) {
-
-				cout << "librarian change password" << endl;
-				// setPassword();
-
+			cin >> sure;
+			if (isNum(sure) && stoi(sure) == 1) {
+				librarians[userIndex].setPassword(input);
 			}
-
 		}
 		break;
 	case 0:
@@ -728,7 +729,7 @@ void Library::searchBooks() {
 	cin >> inputStr1;
 	if (isNum(inputStr1)) { // checks if input is number
 		switch (stoi(inputStr1)) {
-			case '1': {
+			case 1: {
 				cout << "\nSearch: ";
 				cin >> inputStr2;
 				if (isNum(inputStr2)) { // checks if input is number
@@ -751,7 +752,7 @@ void Library::searchBooks() {
 				}
 				break;
 			}
-			case '2': {
+			case 2: {
 				cout << "\nSearch: ";
 				cin >> inputStr2;
 				vector<Book> bookVector;
@@ -776,7 +777,7 @@ void Library::searchBooks() {
 				}
 				break;
 			}
-			case '3': {
+			case 3: {
 				cout << "\nSearch: ";
 				cin >> inputStr2;
 				vector<Book> bookVector;
@@ -801,7 +802,7 @@ void Library::searchBooks() {
 				}
 				break;
 			}
-			case '4': {
+			case 4: {
 				cout << "\nSearch: ";
 				cin >> inputStr2;
 				vector<Book> bookVector;

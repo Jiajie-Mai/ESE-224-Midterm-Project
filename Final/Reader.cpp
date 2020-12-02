@@ -48,7 +48,12 @@ void Reader::addReserved(int index) {
 	reserved.push_back(index);
 }
 
+void overdue() {
+
+}
+
 void Reader::borrowBook(int index) {
+
 }
 
 void Reader::returnBook(int index) {
@@ -64,7 +69,9 @@ void Reader::cancelReservation(int ID) {
 }
 
 void Reader::renewBook(int index) {
+	if (reserved.size() == 0 && ) {
 
+	}
 }
 
 int Reader::displayMenu() {
