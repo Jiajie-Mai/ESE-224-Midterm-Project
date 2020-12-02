@@ -120,18 +120,42 @@ Librarian* Library::getLibrarian(string username) {
 
 
 void Library::userAuthentication(string username, string password) {
-	int index = 0;
 	if (!loggedIn) {
+		int index = 0;
+		for (Librarian librarian : librarians) {
+			if (librarian.getUsername() == username && librarian.getPassword() == password) {
+				cout << "Log in successful." << endl;
+				loggedIn = true;
+				userIndex = index;
+				userType = 0;
+				break;
+			}
+			index++;
+		}
+		index = 0;
+		for (Teacher teacher : teachers) {
+			if (teacher.getUsername() == username && teacher.getPassword() == password) {
+				cout << "Log in successful." << endl;
+				loggedIn = true;
+				userIndex = index;
+				userType = 1;
+				break;
+			}
+			index++;
+		}
+		index = 0;
 		for (Student student : students) {
 			if (student.getUsername() == username && student.getPassword() == password) {
 				cout << "Log in successful." << endl;
 				loggedIn = true;
 				userIndex = index;
+				userType = 2;
 				break;
 			}
 			index++;
 		}
 	}
+	cout << "index" << userIndex << endl;
 	if (!loggedIn) {
 		cout << "Logged in failed, try again." << endl;
 		displayMenu();
@@ -167,45 +191,182 @@ void Library::menuInput(int i) {
 	int counter = 0;
 	switch (i) {
 	case 1:
-		//for (User user : users) {
-		//	if (counter == userLoggedOn) {
-		//		cout << student << endl;
-		//		break;
-		//	}
-		//	else {
-		//		counter++;
-		//	}
-		//}
+
+		cout << "search" << endl;
+		// search();
+
 		break;
 	case 2:
-		//cout << "Input an ISBN in order to borrow it: ";
-		//cin >> input;
-		//if (isNum(input)) {
-		//	for (User user : users) {
-		//		if (counter == studentLoggedOn) {
-		//			borrowBook(user, stoi(input));
-		//			break;
-		//		}
-		//		else {
-		//			counter++;
-		//		}
-		//	}
-		//}
+		if (userType != 0) {
+			cout << "Input an ISBN in order to borrow it: ";
+			cin >> input;
+			if (isNum(input)) {
+				if (userType == 1) {
+
+					cout << "teacher borrow book" << endl;
+					/*borrowBook(teachers[userIndex], stoi(input));*/
+
+				}
+				else {
+
+					cout << "student borrow book" << endl;
+					/*borrowBook(students[userIndex], stoi(input));*/
+
+				}
+			}
+		}
+		else {
+
+			cout << "librarian add book" << endl;
+			// addBook();
+
+		}
+
 		break;
 	case 3:
-		//cout << "Input an ID in order to return it: ";
-		//cin >> input;
-		//if (isNum(input)) {
-		//	for (User user : users) {
-		//		if (counter == userLoggedOn) {
-		//			returnBook(user, stoi(input));
-		//			break;
-		//		}
-		//		else {
-		//			counter++;
-		//		}
-		//	}
-		//}
+		if (userType != 0) {
+			cout << "Input an ID in order to return it: ";
+			cin >> input;
+			if (isNum(input)) {
+				if (userType == 1) {
+
+					cout << "teacher return book" << endl;
+					// returnBook(user, stoi(input));
+
+				}
+				else {
+
+					cout << "student return book" << endl;
+					// returnBook(user, stoi(input));
+
+				}
+			}
+		}
+		else {
+
+			cout << "librarian delete book" << endl;
+			// deleteBook();
+		}
+		break;
+	case 4:
+		if (userType != 0) {
+			cout << "Input an ISBN to reserve a copy: " << endl;
+			cin >> input;
+			if (isNum(input)) {
+				if (userType == 1) {
+
+					cout << "teacher reserve book" << endl;
+					// reserveBook();
+
+				}
+				else {
+
+					cout << "student reserve book" << endl;
+					// reserveBook();
+
+				}
+			}
+		}
+		else {
+
+			cout << "librarian search users" << endl;
+			// searchUsers();
+
+		}
+		break;
+	case 5:
+		if (userType != 0) {
+			cout << "Input the id of the copy to cancel the reservation: " << endl;
+			cin >> input;
+			if (isNum(input)) {
+				if (userType == 1) {
+
+					cout << "teacher cancel reserve" << endl;
+					// cancelReserve();
+
+				}
+				else {
+
+					cout << "student cancel reserve" << endl;
+					// cancelReserve();
+
+				}
+			}
+		}
+		else {
+
+			cout << "librarian add users" << endl;
+			// addUsers();
+
+		}
+		break;
+	case 6:
+		if (userType != 0) {
+			if (userType == 1) {
+
+				cout << "teacher my information" << endl;
+				// cout << user << endl;
+
+			}
+			else {
+
+				cout << "student my information" << endl;
+				// cout << user << endl;
+
+			}
+		}
+		else {
+
+			cout << "librarian delete users" << endl;
+			// deleteUsers();
+
+		}
+		break;
+	case 7:
+		if (userType != 0) {
+			cout << "Input a new password:" << endl;
+			cin >> input;
+			cout << "Are you sure?\n(1) - yes\n(2) - no" << endl;
+			cin >> input;
+			if (isNum(input) && stoi(input) == 1) {
+				if (userType == 1) {
+
+					cout << "teacher change password" << endl;
+					// setPassword();
+
+				}
+				else {
+
+					cout << "student change password" << endl;
+					// setPassword();
+
+				}
+			}
+		}
+		else {
+
+			cout << "librarian my information" << endl;
+			// cout << user << endl;
+
+		}
+		break;
+	case 8:
+		if (userType != 0) {
+			cout << "\nInvalid Input!\n" << endl;
+		}
+		else {
+			cout << "Input a new password:" << endl;
+			cin >> input;
+			cout << "Are you sure?\n(1) - yes\n(2) - no" << endl;
+			cin >> input;
+			if (isNum(input) && stoi(input) == 1) {
+
+				cout << "librarian change password" << endl;
+				// setPassword();
+
+			}
+
+		}
 		break;
 	case 0:
 		logOut();
@@ -220,9 +381,24 @@ void Library::displayMenu() {
 	if (loggedIn) {
 		string input;
 		divider(50);
-		//user.displayMenu();
 		cout << endl << "-             Welcome to My Library!             -" << endl;
 		divider(50);
+
+		switch (userType) {
+		case 0:
+			librarians[userIndex].displayMenu();
+			break;
+		case 1:
+			teachers[userIndex].displayMenu();
+			break;
+		case 2:
+			students[userIndex].displayMenu();
+			break;
+		default:
+			cout << "Warning: Fatal error with user type." << endl;
+			break;
+		}
+
 		cin >> input;
 
 		if (isNum(input)) {
@@ -239,9 +415,6 @@ void Library::displayMenu() {
 		userAuthentication(username, password);
 	}
 }
-
-
-
 
 void Library::readFiles() { 
 	ifstream fin1;
@@ -806,7 +979,7 @@ void Library::recommendBooks() {
 
 	}
 
-	if (type == 1) { // student type
+	if (userType == 1) { // student type
 		vector<int> borrowedIDs = getStudents()[userIndex].getBorrowed();
 		vector<Book> booksToRecommend;
 

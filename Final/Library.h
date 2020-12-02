@@ -22,7 +22,7 @@ private:
 	vector<Teacher> teachers;
 	vector<Librarian> librarians;
 	int userIndex;
-	int type;
+	int userType;
 	bool loggedIn;
 public:
 	// constructor

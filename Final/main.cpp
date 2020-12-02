@@ -23,7 +23,7 @@ void initialize() {
 	LMS.searchUsers("azurediamond");
 	LMS.writeFiles();
 	
-	//LMS.displayMenu();
+	LMS.displayMenu();
 }
 
 int main() {
