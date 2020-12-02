@@ -793,5 +793,75 @@ void Library::deleteUser() {
 
 }
 
-void Library::reccomendBooks() {
+void Library::recommendBooks() {
+	vector<Book> booksToSort = getBooks();
+	for (int i = 0; i < booksToSort.size() - 1; i++) { // bubble sort booksToSort by the number of reservees from greatest to least
+		for (int j = 0; j < booksToSort.size() - 1; j++) {
+			if (booksToSort[j].getNumberOfReservees() < booksToSort[j + 1].getNumberOfReservees()) {
+				Book temp = booksToSort[j];
+				booksToSort[j] = booksToSort[j + 1];
+				booksToSort[j + 1] = temp;
+			}
+		}
+
+	}
+
+	if (type == 1) { // student type
+		vector<int> borrowedIDs = getStudents()[userIndex].getBorrowed();
+		vector<Book> booksToRecommend;
+
+		if (borrowedIDs.empty()) { // case if borrowed is empty
+
+			while ((booksToRecommend.size() < 10) && !booksToSort.empty()) { // grab 10 books or wait for the vector to be empty
+				booksToRecommend.push_back(booksToSort.back());
+				booksToSort.pop_back();
+			}
+			for (int i = 0; i < booksToRecommend.size(); i++) { //output each book to recommend
+				cout << booksToRecommend[i];
+			}
+		}
+		else {
+			while ((booksToRecommend.size() < 10) && !booksToSort.empty()) { // grab 10 books or wait for the vector to be empty
+				Copy bookCopy = *findCopy(borrowedIDs.back());
+				Book lastBook = *findBookFromBookIndex(bookCopy.getBook());
+				if (booksToSort.back().getCategory() == lastBook.getCategory()) { // if the category is the same as the last category the user borrowed, recommend it
+					booksToRecommend.push_back(booksToSort.back());
+				}
+				booksToSort.pop_back(); // remove book from vector
+			}
+			for (int i = 0; i < booksToRecommend.size(); i++) { //output each book to recommend
+				cout << booksToRecommend[i];
+			}
+		}
+	}
+
+	else{ // teacher type
+		vector<int> borrowedIDs = getTeachers()[userIndex].getBorrowed();
+		vector<Book> booksToRecommend;
+
+		if (borrowedIDs.empty()) { // case if borrowed is empty
+
+			while ((booksToRecommend.size() < 10) && !booksToSort.empty()) { // grab 10 books or wait for the vector to be empty
+				booksToRecommend.push_back(booksToSort.back());
+				booksToSort.pop_back();
+			}
+			for (int i = 0; i < booksToRecommend.size(); i++) { //output each book to recommend
+				cout << booksToRecommend[i];
+			}
+		}
+		else {
+			while ((booksToRecommend.size() < 10) && !booksToSort.empty()) { // grab 10 books or wait for the vector to be empty
+				Copy bookCopy = *findCopy(borrowedIDs.back());
+				Book lastBook = *findBookFromBookIndex(bookCopy.getBook());
+				if (booksToSort.back().getCategory() == lastBook.getCategory()) { // if the category is the same as the last category the user borrowed, recommend it
+					booksToRecommend.push_back(booksToSort.back());
+				}
+				booksToSort.pop_back(); // remove book from vector
+			}
+			for (int i = 0; i < booksToRecommend.size(); i++) { //output each book to recommend
+				cout << booksToRecommend[i];
+			}
+		}
+	}
+
 }

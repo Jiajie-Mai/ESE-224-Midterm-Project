@@ -13,7 +13,8 @@ private:
 	int index;
 	int count;
 	int favor;
-	vector<string> reserveeList;
+	vector<string> reserveeList; // to keep track of people that reserve
+	int numberOfReservees; // for popularity (please change along with reservee list)
 public:
 	Book();
 	int getISBN();
@@ -24,6 +25,7 @@ public:
 	int getCount();
 	int getFavor();
 	vector<string> getReserveeList();
+	int getNumberOfReservees();
 	void setISBN(int ISBN);
 	void setTitle(string title);
 	void setAuthor(string author);
@@ -32,6 +34,7 @@ public:
 	void setCount(int count);
 	void setFavor(int favor);
 	void addReserveeList(string username);
+	void setNumberOfReservees(int numberOfReservees);
 
 	friend ostream& operator<< (ostream& output, Book& book);
 	friend istream& operator>> (istream& input, Book& book);

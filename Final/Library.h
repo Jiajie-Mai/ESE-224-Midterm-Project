@@ -85,7 +85,7 @@ public:
 
 	//user functions
 	void searchBooks();
-	void reccomendBooks();
+	void recommendBooks();
 
 	//testing
 	void printBooks();
