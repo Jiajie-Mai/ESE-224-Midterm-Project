@@ -351,7 +351,6 @@ void Library::displayMenu() {
 	string username = " ";
 	int ISBN = -1;
 	for (int i = 0; i < copies.size(); i++) {
-		cout << copies[i].getID() << " " << copies[i].returnDay() << endl;
 		if (copies[i].getReader() != "No Reader") {
 			copies[i].setReserveDate(copies[i].returnDay());
 		}
@@ -421,10 +420,24 @@ void Library::displayMenu() {
 	}
 	else {
 		string username, password;
+		char ch;
 		cout << "Input username and password to continue.\nUsername: ";
 		cin >> username;
 		cout << "Password: ";
-		cin >> password;
+		ch = _getch();
+		while (ch != 13) {//character 13 is enter
+			if (ch != 8) {
+				password.push_back(ch);
+				cout << '*';
+			}
+			else {
+				if (password.size() > 0) {
+					password.pop_back();
+					cout << "\b \b";
+				}
+			}
+			ch = _getch();
+		}
 		userAuthentication(username, password);
 	}
 }
