@@ -730,10 +730,12 @@ void Library::borrowBook(int ISBN) {
 			int index = findIfBookExists(ISBN);
 			if (index != -1) {
 				index = 0;
-				for (Copy copy : copies) {
-					if (copy.getBook() == index && copy.getReader() == "No Reader" && copy.getReserver() == "No Reserver") {
-						copy.setReader(teachers[userIndex].getUsername());
-						teachers[userIndex].addBorrowed(copy.getID());
+				for (int i = 0; i < copies.size(); i++) {
+					Copy* copy = &copies[i]; // pass by reference
+					if (copy->getBook() == index && copy->getReader() == "No Reader" && copy->getReserver() == "No Reserver" && copy->getAvailable() == 0) {
+						copy->setAvailable(1);
+						copy->setReader(teachers[userIndex].getUsername());
+						teachers[userIndex].addBorrowed(copy->getID());
 						copies[index].setExpirationDate(copies[index].returnDay() + (30 /*- amount of reservers*/));
 					}
 					index++;
@@ -746,6 +748,7 @@ void Library::borrowBook(int ISBN) {
 		// update
 	}
 	else {
+		cout << userIndex;
 		if (studentOverdue(students[userIndex])) {
 			cout << "You have overdue books." << endl;
 		}
@@ -756,10 +759,11 @@ void Library::borrowBook(int ISBN) {
 			int index = findIfBookExists(ISBN);
 			if (index != -1) {
 				index = 0;
-				for (Copy copy : copies) {
-					if (copy.getBook() == index && copy.getReader() == "No Reader" && copy.getReserver() == "No Reserver") {
-						copy.setReader(students[userIndex].getUsername());
-						students[userIndex].addBorrowed(copy.getID());
+				for (int i = 0; i < copies.size(); i++) {
+					Copy* copy = &copies[i];
+					if (copy->getBook() == index && copy->getReader() == "No Reader" && copy->getReserver() == "No Reserver") {
+						copy->setReader(students[userIndex].getUsername());
+						students[userIndex].addBorrowed(copy->getID());
 						copies[index].setExpirationDate(copies[index].returnDay() + (30 /*- amount of reservers*/));
 					}
 					index++;
@@ -1188,7 +1192,7 @@ void Library::recommendBooks() {
 
 	}
 
-	if (userType == 1) { // student type
+	if (userType == 2) { // student type
 		vector<int> borrowedIDs = getStudents()[userIndex].getBorrowed();
 		vector<Book> booksToRecommend;
 
@@ -1217,7 +1221,7 @@ void Library::recommendBooks() {
 		}
 	}
 
-	else{ // teacher type
+	else if (userType == 1){ // teacher type
 		vector<int> borrowedIDs = getTeachers()[userIndex].getBorrowed();
 		vector<Book> booksToRecommend;
 
@@ -1244,6 +1248,9 @@ void Library::recommendBooks() {
 				cout << booksToRecommend[i];
 			}
 		}
+	}
+	else { // if this is ever used by librarians
+		cout << "User cannot get book recommendations." << endl;
 	}
 
 }

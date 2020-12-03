@@ -16,11 +16,11 @@ void initialize() {
 	LMS.deleteBook(3);
 	LMS.deleteBook(4);
 	LMS.deleteBook(5);
-	*/
 	LMS.searchUsers("AzureDiamond");
 	LMS.searchUsers("teacher");
 	LMS.searchUsers("librarian2");
 	LMS.searchUsers("azurediamond");
+	*/
 	LMS.writeFiles();
 	
 	LMS.displayMenu();
