@@ -82,12 +82,11 @@ public:
 	void deleteUser();
 
 	//library manipulation
-	bool teacherOverdue(Teacher teacher);
-	bool studentOverdue(Student student);
+	bool overdue(Reader reader);
 	void borrowBook(int ISBN);
 	void returnBook(int id);
 	void reserveBook(int ISBN);
-	void cancelReserve(int id);
+	void cancelReserve(int ISBN);
 	void renewBook(int id);
 
 	//user functions

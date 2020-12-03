@@ -52,12 +52,33 @@ bool Reader::returnBook(int id) {
 	for (int i = 0; i < borrowed.size(); i++) {
 		if (borrowed[i] == id) {
 			borrowed.erase(borrowed.begin() + i); // remove the id of book if it is the correct one
-			maxCopies++;
-			cout << "Returned book with an ID of " << id << endl;
+			if (id != -1) {
+				if (borrowed.size() == 0) {
+					borrowed.push_back(-1);
+				}
+				cout << "Returned book with an ID of " << id << endl;
+			}
 			return true;
 		}
 	}
 	cout << "This book does not exist." << endl;
+	return false;
+}
+
+bool Reader::cancelReserve(int ISBN) {
+	for (int i = 0; i < reserved.size(); i++) {
+		if (reserved[i] == ISBN) {
+			reserved.erase(reserved.begin() + i); // remove the id of book if it is the correct one
+			if (ISBN != -1) {
+				if (reserved.size() == 0) {
+					reserved.push_back(-1);
+				}
+				cout << "Cancelled the reservation for a book with an ISBN of " << ISBN << endl;
+			}
+			return true;
+		}
+	}
+	cout << "This reservation does not exist." << endl;
 	return false;
 }
 

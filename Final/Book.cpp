@@ -75,6 +75,16 @@ void Book::setNumberOfReservees(int numberOfReservees) {
 	this->numberOfReservees = numberOfReservees;
 }
 
+void Book::eraseReservee(string username) {
+	int index = 0;
+	for (string s : reserveeList) {
+		if (username == s) {
+			reserveeList.erase(reserveeList.begin() + index);
+		}
+		index++;
+	}
+}
+
 ostream& operator << (ostream& output, Book& book) { // used to output file from system
 	output << "ISBN: " << book.getISBN() << endl;
 	output << "Title: " << book.getTitle() << endl;

@@ -35,6 +35,7 @@ public:
 	void setFavor(int favor);
 	void addReserveeList(string username);
 	void setNumberOfReservees(int numberOfReservees);
+	void eraseReservee(string username);
 
 	friend ostream& operator<< (ostream& output, Book& book);
 	friend istream& operator>> (istream& input, Book& book);

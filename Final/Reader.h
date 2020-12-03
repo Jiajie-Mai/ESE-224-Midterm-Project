@@ -32,6 +32,7 @@ public:
 	void addReserved(int id);
 
 	bool returnBook(int id);
+	bool cancelReserve(int id);
 
 	// file operations
 	friend ostream& operator<< (ostream& output, Reader& reader);
