@@ -44,34 +44,21 @@ void Reader::addBorrowed(int ID) {
 }
 
 
-void Reader::addReserved(int index) {
-	reserved.push_back(index);
+void Reader::addReserved(int id) {
+	reserved.push_back(id);
 }
 
-void overdue() {
-
-}
-
-void Reader::borrowBook(int index) {
-
-}
-
-void Reader::returnBook(int index) {
-
-}
-
-void Reader::reserveBook(int ID) {
-
-}
-
-void Reader::cancelReservation(int ID) {
-
-}
-
-void Reader::renewBook(int index) {
-	if (reserved.size() == 0 && ) {
-
+bool Reader::returnBook(int id) {
+	for (int i = 0; i < borrowed.size(); i++) {
+		if (borrowed[i] == id) {
+			borrowed.erase(borrowed.begin() + i); // remove the id of book if it is the correct one
+			maxCopies++;
+			cout << "Returned book with an ID of " << id << endl;
+			return true;
+		}
 	}
+	cout << "This book does not exist." << endl;
+	return false;
 }
 
 int Reader::displayMenu() {

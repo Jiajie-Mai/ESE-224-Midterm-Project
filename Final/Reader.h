@@ -29,14 +29,9 @@ public:
 	void setPenalties(int penalties);
 
 	void addBorrowed(int ID); // ID refers to copy
-	void addReserved(int index);
+	void addReserved(int id);
 
-
-	void borrowBook(int index); // index refers to book
-	void returnBook(int index);
-	void reserveBook(int ID);
-	void cancelReservation(int ID);
-	void renewBook(int index);
+	bool returnBook(int id);
 
 	// file operations
 	friend ostream& operator<< (ostream& output, Reader& reader);

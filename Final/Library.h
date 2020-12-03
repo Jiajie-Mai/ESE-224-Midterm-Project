@@ -50,10 +50,12 @@ public:
 	void addStudent(Student student); //adds student from file to students vector
 	void removeStudent(string username); // removes student based on username
 	Student* getStudent(string username); // returns student from username, if does not exist, returns NULL
+	void updateStudent(Student student); // updates student so that thing show up
 
 	void addTeacher(Teacher teacher); //adds teacher from file to teachers vector
 	void removeTeacher(string username); // removes teacher based on username
 	Teacher* getTeacher(string username); // returns teacher from username, if does not exist, returns NULL
+	void updateTeacher(Teacher teacher); // updates teacher so that thing show up
 
 	void addLibrarian(Librarian librarian); //adds librarian from file to librarians vector
 	void removeLibrarian(string username); // removes librarian based on username
@@ -65,9 +67,6 @@ public:
 	Book* findBookFromBookIndex(int bookIndex); // finds book's index in vector from bookIndex, returns -1 if does not exist
 	int findCopyInVector(int ID); // finds copy's index in vector, returns -1 if does not exist
 	Copy* findCopy(int ID); // returns copy from isbn
-	
-
-
 
 	//menu and user interface
 	void userAuthentication(string username, string password);
@@ -82,6 +81,14 @@ public:
 	void addUser();
 	void deleteUser();
 
+	//library manipulation
+	bool teacherOverdue(Teacher teacher);
+	bool studentOverdue(Student student);
+	void borrowBook(int ISBN);
+	void returnBook(int id);
+	void reserveBook(int ISBN);
+	void cancelReserve(int id);
+	void renewBook(int id);
 
 	//user functions
 	void searchBooks();
