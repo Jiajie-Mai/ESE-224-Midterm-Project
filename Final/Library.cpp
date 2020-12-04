@@ -207,7 +207,16 @@ void Library::menuInput(int i) {
 	int counter = 0;
 	switch (i) {
 	case 1:
-		searchBooks();
+		cout << "Do you want to search books to find recommended books?\n(1) - Search Books\n(2) - Recommend Books" << endl;
+		cin >> input;
+		if (isNum(input)) {
+			if (stoi(input) == 1) {
+				searchBooks();
+			}
+			else {
+				recommendBooks();
+			}
+		}
 		break;
 	case 2:
 		if (userType != 0) {
@@ -943,6 +952,27 @@ void Library::returnBook(int id) {
 			}
 		}
 	}
+	int i;
+	string input;
+	cout << "Did you like the book?\n(0) - It was ok\n(1) - It was good\n(2) - It was bad\nIf you do not wish to participate, input any other input than the ones listed." << endl;
+	cin >> input;
+	if (isNum(input)) {
+		for (i = 0; i < books.size(); i++) {
+			if (books[i].getIndex() == copies[findCopyInVector(id)].getBook()) {
+				break;
+			}
+		}
+		switch (stoi(input)) {
+		case 1:
+			books[i].setFavor(books[i].getFavor() + 1);
+			break;
+		case 2:
+			books[i].setFavor(books[i].getFavor() - 1);
+			break;
+		default:
+			break;
+		}
+	}
 	writeFiles();
 }
 
@@ -1050,8 +1080,14 @@ void Library::cancelReserve(int ISBN) {
 			books[index].eraseReservee(teachers[userIndex].getUsername());
 			for (Copy copy : copies) {
 				if (copies[copyIndex].getBook() == index + 1 && copies[copyIndex].getReserver() == teachers[userIndex].getUsername()) {
-					copies[copyIndex].setReserver("No Reserver");
-					copies[copyIndex].setReserveDate(-1);
+					if (findBook(ISBN)->getNumberOfReservees() <= 0) {
+						copies[copyIndex].setReserver("No Reserver");
+						copies[copyIndex].setReserveDate(-1);
+					}
+					else {
+						copies[copyIndex].setReserver(findBook(ISBN)->getReserveeList()[0]);
+						copies[copyIndex].setReserveDate(copies[copyIndex].returnDay());
+					}
 					break;
 				}
 				copyIndex++;
@@ -1062,9 +1098,15 @@ void Library::cancelReserve(int ISBN) {
 		if (students[userIndex].cancelReserve(ISBN)) {
 			books[index].eraseReservee(students[userIndex].getUsername());
 			for (Copy copy : copies) {
-				if (copies[copyIndex].getBook() == index + 1 && copies[copyIndex].getReserver() == students[userIndex].getUsername()) {
-					copies[copyIndex].setReserver("No Reserver");
-					copies[copyIndex].setReserveDate(-1);
+				if (copies[copyIndex].getBook() == index + 1 && copies[copyIndex].getReserver() == teachers[userIndex].getUsername()) {
+					if (findBook(ISBN)->getNumberOfReservees() <= 0) {
+						copies[copyIndex].setReserver("No Reserver");
+						copies[copyIndex].setReserveDate(-1);
+					}
+					else {
+						copies[copyIndex].setReserver(findBook(ISBN)->getReserveeList()[0]);
+						copies[copyIndex].setReserveDate(copies[copyIndex].returnDay());
+					}
 					break;
 				}
 				copyIndex++;
