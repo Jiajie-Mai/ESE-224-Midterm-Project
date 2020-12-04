@@ -76,7 +76,7 @@ int Copy::returnDay() { // returns day
 
 ostream& operator << (ostream& output, Copy& copy) { // used to output file from system
 	output << "ID: " << copy.getID() << endl;
-	output << "Book: " << copy.getBook() << endl; // stores book as index
+	output << "Book Index: " << copy.getBook() << endl; // stores book as index
 	output << "Reader: " << copy.getReader() << endl; // stores reader as username
 	output << "Reserver: " << copy.getReserver() << endl; // stores reserver as username
 	output << "Available: " << copy.getAvailable() << endl;

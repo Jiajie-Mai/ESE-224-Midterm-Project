@@ -139,7 +139,7 @@ void Library::userAuthentication(string username, string password) {
 		int index = 0;
 		for (Librarian librarian : librarians) {
 			if (librarian.getUsername() == username && librarian.getPassword() == password) {
-				cout << "Log in successful." << endl;
+				cout << "\nLog in successful." << endl;
 				loggedIn = true;
 				userIndex = index;
 				userType = 0;
@@ -150,7 +150,7 @@ void Library::userAuthentication(string username, string password) {
 		index = 0;
 		for (Teacher teacher : teachers) {
 			if (teacher.getUsername() == username && teacher.getPassword() == password) {
-				cout << "Log in successful." << endl;
+				cout << "\nLog in successful." << endl;
 				loggedIn = true;
 				userIndex = index;
 				userType = 1;
@@ -161,7 +161,7 @@ void Library::userAuthentication(string username, string password) {
 		index = 0;
 		for (Student student : students) {
 			if (student.getUsername() == username && student.getPassword() == password) {
-				cout << "Log in successful." << endl;
+				cout << "\nLog in successful." << endl;
 				loggedIn = true;
 				userIndex = index;
 				userType = 2;
@@ -708,7 +708,7 @@ void Library::deleteBook(int ID) {
 		cout << "Copy does not exist." << endl;
 	}
 	else if (findCopy(ID)->getAvailable() == 0) { // copy is not available
-		cout << "Copy is currently lent out, so it cannot be deleted." << endl;
+		cout <<						 "Copy is currently lent out, so it cannot be deleted." << endl;
 	}
 	else { // book count needs to be decreased and copy needs to be deleted
 		Book* bookPtr = findBookFromBookIndex(findCopy(ID)->getBook()); // from ID, find the copy, from the copy, find the bookIndex, from bookIndex find book pointer
@@ -796,6 +796,7 @@ void Library::borrowBook(int ISBN) {
 						teachers[userIndex].addBorrowed(copy.getID());
 						copies[copyIndex].setBorrowDate(copies[copyIndex].returnDay());
 						copies[copyIndex].setExpirationDate(copies[copyIndex].returnDay() + (30 - (books[index].getNumberOfReservees() / 20)));
+						copies[copyIndex].setAvailable(0);
 						cout << "Borrowing book of an ISBN " << ISBN << " and with an ID of " << copy.getID() << ". Please return within " << (30 - (books[index].getNumberOfReservees() / 20)) << " days." << endl;
 						if (!(books[index].getNumberOfReservees() <= 0) && books[index].getReserveeList()[0] == teachers[userIndex].getUsername()) {
 							books[index].eraseReservee(teachers[userIndex].getUsername());
@@ -849,6 +850,7 @@ void Library::borrowBook(int ISBN) {
 						students[userIndex].addBorrowed(copy.getID());
 						copies[copyIndex].setBorrowDate(copies[copyIndex].returnDay());
 						copies[copyIndex].setExpirationDate(copies[copyIndex].returnDay() + (30 - (books[index].getNumberOfReservees() / 20)));
+						copies[copyIndex].setAvailable(0);
 						cout << "Borrowing book of an ISBN " << ISBN << " and with an ID of " << copy.getID() << ". Please return within " << (30 - (books[index].getNumberOfReservees() / 20)) << " days." << endl;
 						if (!(books[index].getNumberOfReservees() <= 0) && books[index].getReserveeList()[0] == students[userIndex].getUsername()) {
 							books[index].eraseReservee(students[userIndex].getUsername());
@@ -907,6 +909,7 @@ void Library::returnBook(int id) {
 			copies[findCopyInVector(id)].setReader("No Reader");
 			copies[findCopyInVector(id)].setBorrowDate(-1);
 			copies[findCopyInVector(id)].setExpirationDate(-1);
+			copies[findCopyInVector(id)].setAvailable(1);
 			if (overdue) { 
 				teachers[userIndex].setPenalties(teachers[userIndex].getPenalties() + 1); 
 				cout << "You have returned this book late and will get a penalty. Get 5 penalties and your maximum number of borrowed books will be reduced by 1." << endl;
@@ -929,6 +932,7 @@ void Library::returnBook(int id) {
 			copies[findCopyInVector(id)].setReader("No Reader");
 			copies[findCopyInVector(id)].setBorrowDate(-1);
 			copies[findCopyInVector(id)].setExpirationDate(-1);
+			copies[findCopyInVector(id)].setAvailable(1);
 			if (overdue) {
 				students[userIndex].setPenalties(students[userIndex].getPenalties() + 1);
 				cout << "You have returned this book late and will get a penalty. Get 5 penalties and your maximum number of borrowed books will be reduced by 1." << endl;
@@ -1103,18 +1107,20 @@ void Library::renewBook(int id) {
 
 void Library::searchBooks() {
 	cout << "Search by:\n\t1-ISBN\n\t2-Title\n\t3-Author's Name\n\t4-Category" << endl;
-	string inputStr1, inputStr2;
+	string inputStr1, inputStr2, inputStr3;
 	cin >> inputStr1;
 	if (isNum(inputStr1)) { // checks if input is number
 		switch (stoi(inputStr1)) {
 			case 1: {
 				cout << "\nSearch: ";
 				cin >> inputStr2;
+				//getline(cin, inputStr2);
 				if (isNum(inputStr2)) { // checks if input is number
 					int ISBN = stoi(inputStr2);
 					if (findIfBookExists(ISBN) != -1) { // checks if book exists
 						Book* bookPtr = findBook(ISBN);
 						cout << *bookPtr; // output book
+						cout << "Here are the available copies: " << endl;
 						for (int i = 0; i < copies.size(); i++) {
 							if ((bookPtr->getIndex() == copies[i].getBook()) && (copies[i].getAvailable() != false)) { // if the books are the same, and the copy is available
 								cout << copies[i]; //output copy
@@ -1132,7 +1138,8 @@ void Library::searchBooks() {
 			}
 			case 2: {
 				cout << "\nSearch: ";
-				cin >> inputStr2;
+				getline(cin, inputStr3);
+				getline(cin, inputStr2);
 				vector<Book> bookVector;
 				for (int i = 0; i < getBooks().size(); i++) {
 					if (getBooks()[i].getTitle() == inputStr2) {
@@ -1146,9 +1153,10 @@ void Library::searchBooks() {
 				}
 				else {
 					for (int i = 0; i < bookVector.size(); i++) {
+						cout << "Here are the available copies of " << bookVector[i].getTitle() << ": " << endl;
 						for (int j = 0; j < getCopies().size(); j++) {
-							if ((bookVector[i].getIndex() == copies[i].getBook()) && (copies[i].getAvailable() != false)) {
-								cout << copies[i]; //output copy
+							if ((bookVector[i].getIndex() == copies[j].getBook()) && (copies[i].getAvailable() != false)) {
+								cout << copies[j]; //output copy
 							}
 						}
 					}
@@ -1157,7 +1165,8 @@ void Library::searchBooks() {
 			}
 			case 3: {
 				cout << "\nSearch: ";
-				cin >> inputStr2;
+				getline(cin, inputStr3);
+				getline(cin, inputStr2);
 				vector<Book> bookVector;
 				for (int i = 0; i < getBooks().size(); i++) {
 					if (getBooks()[i].getAuthor() == inputStr2) {
@@ -1171,9 +1180,10 @@ void Library::searchBooks() {
 				}
 				else {
 					for (int i = 0; i < bookVector.size(); i++) {
+						cout << "Here are the available copies of " << bookVector[i].getTitle() << ": " << endl;
 						for (int j = 0; j < getCopies().size(); j++) {
-							if ((bookVector[i].getIndex() == copies[i].getBook()) && (copies[i].getAvailable() != false)) {
-								cout << copies[i]; //output copy
+							if ((bookVector[i].getIndex() == copies[j].getBook()) && (copies[i].getAvailable() != false)) {
+								cout << copies[j]; //output copy
 							}
 						}
 					}
@@ -1182,7 +1192,8 @@ void Library::searchBooks() {
 			}
 			case 4: {
 				cout << "\nSearch: ";
-				cin >> inputStr2;
+				getline(cin, inputStr3);
+				getline(cin, inputStr2);
 				vector<Book> bookVector;
 				for (int i = 0; i < getBooks().size(); i++) {
 					if (getBooks()[i].getCategory() == inputStr2) {
@@ -1196,9 +1207,10 @@ void Library::searchBooks() {
 				}
 				else {
 					for (int i = 0; i < bookVector.size(); i++) {
+						cout << "Here are the available copies of " << bookVector[i].getTitle() << ": " << endl;
 						for (int j = 0; j < getCopies().size(); j++) {
-							if ((bookVector[i].getIndex() == copies[i].getBook()) && (copies[i].getAvailable() != false)) {
-								cout << copies[i]; //output copy
+							if ((bookVector[i].getIndex() == copies[j].getBook()) && (copies[i].getAvailable() != false)) {
+								cout << copies[j]; //output copy
 							}
 						}
 					}

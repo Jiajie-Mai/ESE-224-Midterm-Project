@@ -1,13 +1,13 @@
 ID: 1
-Book: 1
-Reader: No Reader
+Book Index: 1
+Reader: username
 Reserver: No Reserver
-Available: 1
-Borrow Date: -1
-Reserve Date: -1
-Expiration Date: -1
+Available: 0
+Borrow Date: 67
+Reserve Date: 10
+Expiration Date: 97
 ID: 2
-Book: 2
+Book Index: 2
 Reader: No Reader
 Reserver: No Reserver
 Available: 1
@@ -15,7 +15,7 @@ Borrow Date: -1
 Reserve Date: -1
 Expiration Date: -1
 ID: 3
-Book: 3
+Book Index: 3
 Reader: No Reader
 Reserver: No Reserver
 Available: 1
@@ -23,7 +23,7 @@ Borrow Date: -1
 Reserve Date: -1
 Expiration Date: -1
 ID: 4
-Book: 4
+Book Index: 4
 Reader: No Reader
 Reserver: No Reserver
 Available: 1

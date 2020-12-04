@@ -9,6 +9,6 @@ Username: username
 Password: password
 Max Copies: 4
 Max Borrowing Period: 30
-IDs of Borrowed Copies: -1 
+IDs of Borrowed Copies: 1 
 Indexes of Reserved Books: -1 
 Penalties: 0
