@@ -17,6 +17,7 @@ private:
 	int reserveDate;
 	int expirationDate;
 public:
+	// acccessor functions
 	int getID();
 	int getBook();
 	string getReader();
@@ -26,6 +27,7 @@ public:
 	int getReserveDate();
 	int getExpirationDate();
 
+	// mutator functions
 	void setID(int ID);
 	void setBook(int bookIndex);
 	void setReader(string readerName);

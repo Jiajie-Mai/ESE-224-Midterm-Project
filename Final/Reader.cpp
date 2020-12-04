@@ -48,6 +48,7 @@ void Reader::addReserved(int id) {
 	reserved.push_back(id);
 }
 
+// helper function to the library function returnBook
 bool Reader::returnBook(int id) {
 	for (int i = 0; i < borrowed.size(); i++) {
 		if (borrowed[i] == id) {
@@ -65,6 +66,7 @@ bool Reader::returnBook(int id) {
 	return false;
 }
 
+// helper function to the library function cancelReservation
 bool Reader::cancelReserve(int ISBN) {
 	for (int i = 0; i < reserved.size(); i++) {
 		if (reserved[i] == ISBN) {

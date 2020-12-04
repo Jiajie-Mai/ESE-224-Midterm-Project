@@ -17,6 +17,7 @@ private:
 	int numberOfReservees; // for popularity (please change along with reservee list)
 public:
 	Book();
+	// acccessor functions
 	int getISBN();
 	string getTitle();
 	string getAuthor();
@@ -26,6 +27,8 @@ public:
 	int getFavor();
 	vector<string> getReserveeList();
 	int getNumberOfReservees();
+
+	// mutator functions
 	void setISBN(int ISBN);
 	void setTitle(string title);
 	void setAuthor(string author);
@@ -35,6 +38,8 @@ public:
 	void setFavor(int favor);
 	void addReserveeList(string username);
 	void setNumberOfReservees(int numberOfReservees);
+
+	// used as a helper function to delete a user from a reservee list
 	void eraseReservee(string username);
 
 	friend ostream& operator<< (ostream& output, Book& book);

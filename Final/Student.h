@@ -5,6 +5,6 @@ class Student : public Reader
 {
 public:
 	Student();
-	int displayMenu();
+	int displayMenu(); // default display menu for a generic student
 };
 

@@ -75,7 +75,7 @@ void Book::setNumberOfReservees(int numberOfReservees) {
 	this->numberOfReservees = numberOfReservees;
 }
 
-void Book::eraseReservee(string username) {
+void Book::eraseReservee(string username) { // helper function used to erase a user from the reserveeList
 	int index = 0;
 	for (string s : reserveeList) {
 		if (username == s) {
