@@ -3,7 +3,7 @@ Title: Twilight
 Author: Stephanie Meyer
 Category: Fantasy
 Index: 1
-Count: 1
+Count: 2
 Favor: 0
 Reservee List: 
 Number of Reservees: 0
@@ -30,6 +30,105 @@ Title: Harry Potter and the Prisoner of Azkaban
 Author: J. K. Rowling
 Category: Fantasy
 Index: 4
+Count: 1
+Favor: 0
+Reservee List: 
+Number of Reservees: 0
+ISBN: 1115
+Title: Harry Potter and the Goblet of Fire
+Author: J. K. Rowling
+Category: Fantasy
+Index: 5
+Count: 1
+Favor: 0
+Reservee List: 
+Number of Reservees: 0
+ISBN: 1116
+Title: Harry Potter and the Order of the Phoenix
+Author: J. K. Rowling
+Category: Fantasy
+Index: 6
+Count: 1
+Favor: 0
+Reservee List: 
+Number of Reservees: 0
+ISBN: 1117
+Title: Title: Harry Potter and the Half-Blood Prince
+Author: J. K. Rowling
+Category: Fantasy
+Index: 7
+Count: 1
+Favor: 0
+Reservee List: 
+Number of Reservees: 0
+ISBN: 1118
+Title: Harry Potter and the Deathly Hallows
+Author: J. K. Rowling
+Category: Fantasy
+Index: 8
+Count: 1
+Favor: 0
+Reservee List: 
+Number of Reservees: 0
+ISBN: 1119
+Title: The City of Ember
+Author: Jeanne DuPrau
+Category: Science Fiction
+Index: 9
+Count: 1
+Favor: 0
+Reservee List: 
+Number of Reservees: 0
+ISBN: 1120
+Title: One Day at Horrorland
+Author: R. L. Stine
+Category: Horror
+Index: 10
+Count: 1
+Favor: 0
+Reservee List: 
+Number of Reservees: 0
+ISBN: 1121
+Title: Diary of a Mad Mummy
+Author: R. L. Stine
+Category: Horror
+Index: 11
+Count: 1
+Favor: 0
+Reservee List: 
+Number of Reservees: 0
+ISBN: 1122
+Title: The Curse of the Creeping Coffin
+Author: R. L. Stine
+Category: Horror
+Index: 12
+Count: 1
+Favor: 0
+Reservee List: 
+Number of Reservees: 0
+ISBN: 1123
+Title: The Wealth of Nations
+Author: Adam Smith
+Category: Non-fiction
+Index: 13
+Count: 1
+Favor: 0
+Reservee List: 
+Number of Reservees: 0
+ISBN: 1124
+Title: Trump: The Art of the Deal
+Author: Donald Trump & Tony Schwartz
+Category: Non-fiction
+Index: 14
+Count: 1
+Favor: 0
+Reservee List: 
+Number of Reservees: 0
+ISBN: 1125
+Title: A Farewell to Arms
+Author: Ernest Hemingway
+Category: Realism
+Index: 15
 Count: 1
 Favor: 0
 Reservee List: 

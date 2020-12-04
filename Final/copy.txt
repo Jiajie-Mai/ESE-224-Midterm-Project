@@ -1,11 +1,11 @@
 ID: 1
 Book Index: 1
-Reader: username
+Reader: No Reader
 Reserver: No Reserver
-Available: 0
-Borrow Date: 67
-Reserve Date: 10
-Expiration Date: 97
+Available: 1
+Borrow Date: -1
+Reserve Date: 29
+Expiration Date: -1
 ID: 2
 Book Index: 2
 Reader: No Reader
@@ -24,6 +24,102 @@ Reserve Date: -1
 Expiration Date: -1
 ID: 4
 Book Index: 4
+Reader: No Reader
+Reserver: No Reserver
+Available: 1
+Borrow Date: -1
+Reserve Date: -1
+Expiration Date: -1
+ID: 5
+Book Index: 5
+Reader: No Reader
+Reserver: No Reserver
+Available: 1
+Borrow Date: -1
+Reserve Date: -1
+Expiration Date: -1
+ID: 6
+Book Index: 6
+Reader: No Reader
+Reserver: No Reserver
+Available: 1
+Borrow Date: -1
+Reserve Date: -1
+Expiration Date: -1
+ID: 7
+Book Index: 7
+Reader: No Reader
+Reserver: No Reserver
+Available: 1
+Borrow Date: -1
+Reserve Date: -1
+Expiration Date: -1
+ID: 8
+Book Index: 8
+Reader: No Reader
+Reserver: No Reserver
+Available: 1
+Borrow Date: -1
+Reserve Date: -1
+Expiration Date: -1
+ID: 9
+Book Index: 9
+Reader: No Reader
+Reserver: No Reserver
+Available: 1
+Borrow Date: -1
+Reserve Date: -1
+Expiration Date: -1
+ID: 10
+Book Index: 10
+Reader: No Reader
+Reserver: No Reserver
+Available: 1
+Borrow Date: -1
+Reserve Date: -1
+Expiration Date: -1
+ID: 11
+Book Index: 11
+Reader: No Reader
+Reserver: No Reserver
+Available: 1
+Borrow Date: -1
+Reserve Date: -1
+Expiration Date: -1
+ID: 12
+Book Index: 12
+Reader: No Reader
+Reserver: No Reserver
+Available: 1
+Borrow Date: -1
+Reserve Date: -1
+Expiration Date: -1
+ID: 13
+Book Index: 13
+Reader: No Reader
+Reserver: No Reserver
+Available: 1
+Borrow Date: -1
+Reserve Date: -1
+Expiration Date: -1
+ID: 14
+Book Index: 14
+Reader: No Reader
+Reserver: No Reserver
+Available: 1
+Borrow Date: -1
+Reserve Date: -1
+Expiration Date: -1
+ID: 15
+Book Index: 15
+Reader: No Reader
+Reserver: No Reserver
+Available: 1
+Borrow Date: -1
+Reserve Date: -1
+Expiration Date: -1
+ID: 16
+Book Index: 1
 Reader: No Reader
 Reserver: No Reserver
 Available: 1

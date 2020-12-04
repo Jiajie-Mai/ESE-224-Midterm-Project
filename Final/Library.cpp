@@ -89,7 +89,7 @@ void Library::addTeacher(Teacher teacher) {
 }
 
 void Library::removeTeacher(string username) {
-	for (int i = 0; i < students.size(); i++) {
+	for (int i = 0; i < teachers.size(); i++) {
 		if (teachers[i].getUsername() == username) {
 			teachers.erase(teachers.begin() + i);
 		}
@@ -106,7 +106,7 @@ Teacher* Library::getTeacher(string username) {
 }
 
 void Library::updateTeacher(Teacher teacher) {
-	for (int i = 0; i < students.size(); i++) {
+	for (int i = 0; i < teachers.size(); i++) {
 		if (teachers[i].getUsername() == teacher.getUsername()) {
 			teachers[i] = teacher;
 		}
@@ -118,7 +118,7 @@ void Library::addLibrarian(Librarian librarian) {
 }
 
 void Library::removeLibrarian(string username) {
-	for (int i = 0; i < students.size(); i++) {
+	for (int i = 0; i < librarians.size(); i++) {
 		if (librarians[i].getUsername() == username) {
 			librarians.erase(librarians.begin() + i);
 		}
@@ -228,18 +228,24 @@ void Library::menuInput(int i) {
 		}
 		else {
 			int ISBN = 0;
-			string title, author, category;
+			string title, author, category, empty;
 			cout << "Input the ISBN of the book: " << endl;
 			cin >> input;
 			if (isNum(input)) {
+
 				ISBN = stoi(input);
 				cout << "Input the title of the book: " << endl;
-				cin >> title;
+				getline(cin, empty); // eats enter input
+				getline(cin, title);
 				cout << "Input the author of the book: " << endl;
-				cin >> author;
+				//getline(cin, empty);
+				getline(cin, author);
 				cout << "Input the category of the book: " << endl;
-				cin >> category;
+				//getline(cin, empty);
+				getline(cin, category);
 				addBooks(ISBN, title, author, category);
+
+
 			}
 
 		}
@@ -793,7 +799,6 @@ void Library::borrowBook(int ISBN) {
 		else {
 			bool borrowedBook = false;
 			int index = findIfBookExists(ISBN);
-			int bookIndex;
 
 			if (index != -1) {
 				int copyIndex = 0;
@@ -982,7 +987,7 @@ void Library::reserveBook(int ISBN) {
 		cout << "This book does not exist." << endl;
 		return;
 	}
-	bool index = findIfBookExists(ISBN);
+	bool index = -1;
 	if (userType == 1) {
 		for (int isbn : teachers[userIndex].getReserved()) {
 			if (isbn == ISBN) {
@@ -994,6 +999,12 @@ void Library::reserveBook(int ISBN) {
 			cout << "You have overdue books, please return them before reserving books." << endl;
 		}
 		else {
+			for (Book book : books) {
+				index++;
+				if (book.getISBN() == ISBN) {
+					break;
+				}
+			}
 			if (index != -1) {
 				for (string username : books[index].getReserveeList()) {
 					if (username == teachers[userIndex].getUsername()) {
@@ -1027,6 +1038,12 @@ void Library::reserveBook(int ISBN) {
 			cout << "You have overdue books, please return them before reserving books." << endl;
 		}
 		else {
+			for (Book book : books) {
+				index++;
+				if (book.getISBN() == ISBN) {
+					break;
+				}
+			}
 			if (index != -1) {
 				for (string username : books[index].getReserveeList()) {
 					if (username == students[userIndex].getUsername()) {
@@ -1288,6 +1305,8 @@ void Library::addUser() {
 			cin >> password;
 			Student student;
 			student.setUsername(username);
+			student.addBorrowed(-1);
+			student.addReserved(-1);
 			student.setPassword(password);
 			students.push_back(student);
 			writeFiles();
@@ -1304,6 +1323,8 @@ void Library::addUser() {
 			cin >> password;
 			Teacher teacher;
 			teacher.setUsername(username);
+			teacher.addBorrowed(-1);
+			teacher.addReserved(-1);
 			teacher.setPassword(password);
 			teachers.push_back(teacher);
 			writeFiles();
@@ -1379,7 +1400,15 @@ void Library::deleteUser() {
 		
 	}
 	else if (getLibrarian(username) != NULL) { // user is a librarian
-		removeLibrarian(username); // librarians cannot reserve books
+		if (getLibrarians().size() == 1) {
+			cout << "Last librarian cannot be deleted." << endl;
+		}
+		else {
+			removeLibrarian(username); // librarians cannot reserve books
+			cout << "User will be logged out. Afterwards, the librarian will be removed. Please log back in to continue." << endl;
+			// This is to handle the case where the librarian deletes themself.
+			logOut();
+		}
 	}
 	else {
 		cout << "User does not exist." << endl;
@@ -1392,7 +1421,7 @@ void Library::recommendBooks() {
 	vector<Book> booksToSort = getBooks();
 	for (int i = 0; i < booksToSort.size() - 1; i++) { // bubble sort booksToSort by the number of reservees from greatest to least
 		for (int j = 0; j < booksToSort.size() - 1; j++) {
-			if (booksToSort[j].getNumberOfReservees() < booksToSort[j + 1].getNumberOfReservees()) {
+			if (booksToSort[j].getNumberOfReservees() > booksToSort[j + 1].getNumberOfReservees()) {
 				Book temp = booksToSort[j];
 				booksToSort[j] = booksToSort[j + 1];
 				booksToSort[j + 1] = temp;
@@ -1402,7 +1431,10 @@ void Library::recommendBooks() {
 	}
 
 	if (userType == 2) { // student type
-		vector<int> borrowedIDs = getStudents()[userIndex].getBorrowed();
+		vector<int> borrowedIDs;
+		if (students[userIndex].getBorrowed()[0] != -1) {
+			borrowedIDs = getStudents()[userIndex].getBorrowed();
+		}
 		vector<Book> booksToRecommend;
 
 		if (borrowedIDs.empty()) { // case if borrowed is empty
@@ -1430,8 +1462,11 @@ void Library::recommendBooks() {
 		}
 	}
 
-	else if (userType == 1){ // teacher type
-		vector<int> borrowedIDs = getTeachers()[userIndex].getBorrowed();
+	else if (userType == 1) { // teacher type
+		vector<int> borrowedIDs;
+		if (teachers[userIndex].getBorrowed()[0] != -1) {
+			borrowedIDs = getTeachers()[userIndex].getBorrowed();
+		}
 		vector<Book> booksToRecommend;
 
 		if (borrowedIDs.empty()) { // case if borrowed is empty

@@ -1,4 +1,2 @@
 Username: librarian
 Password: password
-Username: librarian2
-Password: password
