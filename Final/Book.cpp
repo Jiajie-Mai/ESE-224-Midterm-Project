@@ -93,12 +93,19 @@ ostream& operator << (ostream& output, Book& book) { // used to output file from
 	output << "Index: " << book.getIndex() << endl;
 	output << "Count: " << book.getCount() << endl;
 	output << "Favor: " << book.getFavor() << endl;
+	output << "Reservee List: ";
+	if (!book.getReserveeList().empty())
+		for (int i = 0; i < book.getReserveeList().size(); i++) {
+			output << book.getReserveeList()[i] << " ";
+		}
+	output << endl;
+	output << "Number of Reservees: " << book.getNumberOfReservees() << endl;
 	return output;
 }
 
 istream& operator >> (istream& input, Book& book) { // used to input file into system
 	string title, author, category;
-	int isbn, index, count, favor;
+	int isbn, index, count, favor, numberOfReservees;
 	string empty;
 
 	getline(input, empty, ':');					//we're not retrieving a string, so they >> operator is enough
@@ -125,6 +132,27 @@ istream& operator >> (istream& input, Book& book) { // used to input file into s
 	getline(input, empty, ':');					//we're not retrieving a string, so they >> operator is enough
 	input >> favor;
 
+	string vectorString;
+	getline(input, empty, ':');
+	getline(input, vectorString);
+	vectorString.push_back(' '); // necessary to find the the last element in the string
+	string str1 = "";
+	if (vectorString != " ")
+		for (int i = 1; i < vectorString.length(); i++) { // i starts as 1 because first character is space
+			if (vectorString[i] == ' ') {
+				if (str1 != "") {
+					book.addReserveeList(str1);
+					string str1 = "";
+				}
+			}
+			else {
+				str1 += vectorString[i];
+			}
+		}
+
+	getline(input, empty, ':');					//we're not retrieving a string, so they >> operator is enough
+	input >> numberOfReservees;
+
 
 								
 	book.setISBN(isbn);
@@ -134,6 +162,7 @@ istream& operator >> (istream& input, Book& book) { // used to input file into s
 	book.setIndex(index);
 	book.setCount(count);
 	book.setFavor(favor);
+	book.setNumberOfReservees(numberOfReservees);
 	return input;
 }
 
