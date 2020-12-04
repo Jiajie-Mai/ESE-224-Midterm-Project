@@ -793,6 +793,7 @@ void Library::borrowBook(int ISBN) {
 		else {
 			bool borrowedBook = false;
 			int index = findIfBookExists(ISBN);
+			int bookIndex;
 
 			if (index != -1) {
 				int copyIndex = 0;
@@ -981,7 +982,7 @@ void Library::reserveBook(int ISBN) {
 		cout << "This book does not exist." << endl;
 		return;
 	}
-	bool index = -1;
+	bool index = findIfBookExists(ISBN);
 	if (userType == 1) {
 		for (int isbn : teachers[userIndex].getReserved()) {
 			if (isbn == ISBN) {
@@ -993,12 +994,6 @@ void Library::reserveBook(int ISBN) {
 			cout << "You have overdue books, please return them before reserving books." << endl;
 		}
 		else {
-			for (Book book : books) {
-				index++;
-				if (book.getISBN() == ISBN) {
-					break;
-				}
-			}
 			if (index != -1) {
 				for (string username : books[index].getReserveeList()) {
 					if (username == teachers[userIndex].getUsername()) {
@@ -1032,12 +1027,6 @@ void Library::reserveBook(int ISBN) {
 			cout << "You have overdue books, please return them before reserving books." << endl;
 		}
 		else {
-			for (Book book : books) {
-				index++;
-				if (book.getISBN() == ISBN) {
-					break;
-				}
-			}
 			if (index != -1) {
 				for (string username : books[index].getReserveeList()) {
 					if (username == students[userIndex].getUsername()) {
