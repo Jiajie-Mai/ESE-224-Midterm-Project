@@ -335,7 +335,16 @@ void Library::menuInput(int i) {
 			}
 		}
 		else {
-			cout << librarians[userIndex] << endl;
+			cout << "Do you want to display your information, or the the entire library?\n(1) - Display your information\n(2) - Display entire library" << endl;
+			cin >> input;
+			if (isNum(input)) {
+				if (stoi(input) == 1) {
+					cout << librarians[userIndex] << endl; // display your information
+				}
+				else {
+					printAll(); // display entire library
+				}
+			}
 		}
 		break;
 	case 8:
@@ -594,36 +603,12 @@ void Library::writeFiles() {
 
 }
 
-void Library::printBooks() {
-	for (int i = 0; i < books.size(); i++) {
-		cout << books[i];
+template <typename T>
+void Library::print(vector<T> vectorName) { // prints every item in the vector
+	for (int i = 0; i < vectorName.size(); i++) {
+		cout << vectorName[i];
 	}
 }
-
-void Library::printCopies() {
-	for (int i = 0; i < copies.size(); i++) {
-		cout << copies[i];
-	}
-}
-
-void Library::printStudents() {
-	for (int i = 0; i < students.size(); i++) {
-		cout << students[i];
-	}
-}
-
-void Library::printTeachers() {
-	for (int i = 0; i < teachers.size(); i++) {
-		cout << teachers[i];
-	}
-}
-
-void Library::printLibrarians() {
-	for (int i = 0; i < librarians.size(); i++) {
-		cout << librarians[i];
-	}
-}
-
 
 int Library::findIfBookExists(int ISBN) {
 	for (int i = 0; i < books.size(); i++) {
@@ -1415,6 +1400,14 @@ void Library::deleteUser() {
 	}
 	writeFiles();
 
+}
+
+void Library::printAll() {
+	print(getBooks()); // uses template to print every vector of different types
+	print(getCopies());
+	print(getStudents());
+	print(getTeachers());
+	print(getLibrarians());
 }
 
 void Library::recommendBooks() {

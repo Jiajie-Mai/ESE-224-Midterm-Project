@@ -81,6 +81,9 @@ public:
 	void searchUsers(string username);
 	void addUser();
 	void deleteUser();
+	void printAll(); // prints all items in the library
+	template <typename T>
+	void print(vector<T> vectorName);
 
 	//library manipulation
 	bool overdue(Reader reader);
@@ -94,11 +97,7 @@ public:
 	void searchBooks();
 	void recommendBooks();
 
-	//testing
-	void printBooks();
-	void printCopies();
-	void printStudents();
-	void printTeachers();
-	void printLibrarians();
+
+	
 };
 
