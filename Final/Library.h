@@ -89,6 +89,7 @@ public:
 	bool overdue(Reader reader);
 	void borrowBook(int ISBN);
 	void returnBook(int id);
+	void favor(int id); // used to poll a returner on whether they enjoyed the book
 	void reserveBook(int ISBN);
 	void cancelReserve(int ISBN);
 	void renewBook(int id);

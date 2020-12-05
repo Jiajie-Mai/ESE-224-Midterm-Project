@@ -134,10 +134,10 @@ Librarian* Library::getLibrarian(string username) {
 	return NULL;
 }
 
-void Library::userAuthentication(string username, string password) {
+void Library::userAuthentication(string username, string password) { // used to check if the username and password matches a user
 	if (!loggedIn) {
 		int index = 0;
-		for (Librarian librarian : librarians) {
+		for (Librarian librarian : librarians) { // checks librarian vector for a user that matches the credentials
 			if (librarian.getUsername() == username && librarian.getPassword() == password) {
 				cout << "\nLog in successful." << endl;
 				loggedIn = true;
@@ -148,7 +148,7 @@ void Library::userAuthentication(string username, string password) {
 			index++;
 		}
 		index = 0;
-		for (Teacher teacher : teachers) {
+		for (Teacher teacher : teachers) { // checks teachers vector for a user that matches the credentials
 			if (teacher.getUsername() == username && teacher.getPassword() == password) {
 				cout << "\nLog in successful." << endl;
 				loggedIn = true;
@@ -159,7 +159,7 @@ void Library::userAuthentication(string username, string password) {
 			index++;
 		}
 		index = 0;
-		for (Student student : students) {
+		for (Student student : students) { // checks students vector for a user that matches the credentials
 			if (student.getUsername() == username && student.getPassword() == password) {
 				cout << "\nLog in successful." << endl;
 				loggedIn = true;
@@ -170,12 +170,11 @@ void Library::userAuthentication(string username, string password) {
 			index++;
 		}
 	}
-	if (!loggedIn) {
-		system("cls");
+	if (!loggedIn) { // if no user is logged in after credentials are checked, the login has failed
 		cout << "Logged in failed, try again." << endl;
-		displayMenu();
+		displayMenu(); // loop 
 	}
-	else {
+	else { // else, clear screen for tidiness
 		system("cls");
 		displayMenu();
 	}
@@ -186,13 +185,13 @@ void Library::logOut() {
 	loggedIn = false;
 }
 
-void divider(int size) {
+void divider(int size) { // used for the title of the menu
 	for (int i = 0; i < size; i++) {
 		cout << "-";
 	}
 }
 
-bool isNum(string input) {
+bool isNum(string input) { // checks if all characters in the input are numbers, does not work if input is a negative number because of the '-' character
 	for (int i = 0; i < input.length(); i++) {
 		if (!isdigit(input[i])) {
 			cout << "\nInvalid Input!\n" << endl;
@@ -202,31 +201,44 @@ bool isNum(string input) {
 	return true;
 }
 
-void Library::menuInput(int i) {
+void Library::menuInput(int i) { // switch case to determine which operation the user wants
 	string input;
 	int counter = 0;
-	switch (i) {
-	case 1:
+	switch (i) { 
+	case 1: // search/recommend books for all users
 		cout << "Do you want to search books to find recommended books?\n(1) - Search Books\n(2) - Recommend Books" << endl;
 		cin >> input;
 		if (isNum(input)) {
-			if (stoi(input) == 1) {
+			if (stoi(input) == 1) { // search if input is 1
 				searchBooks();
 			}
-			else {
+			else if (stoi(input) == 2) { // recommend if input is 2
 				recommendBooks();
 			}
 		}
 		break;
-	case 2:
-		if (userType != 0) {
-			cout << "Input an ISBN in order to borrow it: ";
+	case 2: // borrow/renew books for reader or add book if librarian
+		if (userType != 0) { // if user is reader
+			cout << "Do you want to borrow or renew books?\n(1) - Borrow Books\n(2) - Renew Books" << endl;
 			cin >> input;
-			if (isNum(input)) {
-				borrowBook(stoi(input));
+			if (isNum(input)) { // checks if the reader wants to borrow or renew
+				if (stoi(input) == 1) { // borrow if input is 1
+					cout << "Input an ISBN in order to borrow it: ";
+					cin >> input;
+					if (isNum(input)) {
+						borrowBook(stoi(input));
+					}
+				} 
+				else if (stoi(input) == 2) { // renew if input is 2
+					cout << "Input an ID to renew it: ";
+					cin >> input;
+					if (isNum(input)) {
+						renewBook(stoi(input));
+					}
+				}
 			}
 		}
-		else {
+		else { // if user is librarian
 			int ISBN = 0;
 			string title, author, category, empty;
 			cout << "Input the ISBN of the book: " << endl;
@@ -244,21 +256,18 @@ void Library::menuInput(int i) {
 				//getline(cin, empty);
 				getline(cin, category);
 				addBooks(ISBN, title, author, category);
-
-
 			}
-
 		}
 		break;
-	case 3:
-		if (userType != 0) {
+	case 3: // return if user is reader or delete if user is librarian
+		if (userType != 0) { // if user is reader
 			cout << "Input an ID in order to return it: ";
 			cin >> input;
 			if (isNum(input)) {
 				returnBook(stoi(input));
 			}
 		}
-		else {
+		else { // if user is librarian
 			cout << "Input an id of a copy to delete it: " << endl;
 			cin >> input;
 			if (isNum(input)) {
@@ -266,53 +275,53 @@ void Library::menuInput(int i) {
 			}
 		}
 		break;
-	case 4:
-		if (userType != 0) {
+	case 4: // reserve if user is reader or search user if user is librarian
+		if (userType != 0) { // if user is reader
 			cout << "Input an ISBN to reserve a copy: " << endl;
 			cin >> input;
 			if (isNum(input)) {
 				reserveBook(stoi(input));
 			}
 		}
-		else {
+		else { // if user is librarian
 			cout << "Input a username to search the user: " << endl;
 			cin >> input;
 			searchUsers(input);
 		}
 		break;
-	case 5:
-		if (userType != 0) {
+	case 5: // cancel reservation if user is reader or add user if user is librarian
+		if (userType != 0) { // if user is reader
 			cout << "Input the ISBN to cancel the reservation: " << endl;
 			cin >> input;
 			if (isNum(input)) {
 				cancelReserve(stoi(input));
 			}
 		}
-		else {
+		else { // if user is librarian
 			addUser();
 		}
 		break;
-	case 6:
-		if (userType != 0) {
-			if (userType == 1) {
+	case 6: // information if user is reader or delete user if user is librarian
+		if (userType != 0) { // if user is reader
+			if (userType == 1) { // if user is teacher
 				cout << teachers[userIndex] << endl;
 			}
-			else {
+			else { // if user is students
 				cout << students[userIndex] << endl;
 			}
 		}
-		else {
+		else { // if user is librarian
 			deleteUser();
 		}
 		break;
-	case 7:
-		if (userType != 0) {
+	case 7: // change password if user or information if user is librarian
+		if (userType != 0) { // if user is reader
 			cout << "Input a new password:" << endl;
 			cin >> input;
-			cout << "Are you sure?\n(1) - yes\n(2) - no" << endl;
+			cout << "Are you sure?\n(1) - yes\n(2) - no" << endl; // checks if user actually wants to change password
 			cin >> input;
 			if (isNum(input) && stoi(input) == 1) {
-				if (userType == 1) {
+				if (userType == 1) { // if reader is teacher
 					string sure;
 					cout << "Input a new password:" << endl;
 					cin >> input;
@@ -322,7 +331,7 @@ void Library::menuInput(int i) {
 						teachers[userIndex].setPassword(input);
 					}
 				}
-				else {
+				else { // if user is student
 					string sure;
 					cout << "Input a new password:" << endl;
 					cin >> input;
@@ -334,7 +343,7 @@ void Library::menuInput(int i) {
 				}
 			}
 		}
-		else {
+		else { // if user is librarian
 			cout << "Do you want to display your information, or the the entire library?\n(1) - Display your information\n(2) - Display entire library" << endl;
 			cin >> input;
 			if (isNum(input)) {
@@ -347,7 +356,7 @@ void Library::menuInput(int i) {
 			}
 		}
 		break;
-	case 8:
+	case 8: // change password only for librarian
 		if (userType != 0) {
 			cout << "\nInvalid Input!\n" << endl;
 		}
@@ -362,42 +371,45 @@ void Library::menuInput(int i) {
 			}
 		}
 		break;
-	case 0:
+	case 0: // log out for all users
 		logOut();
 		break;
-	default:
+	default: // invalid input for all other users
 		cout << "\nInvalid Input!\n" << endl;
 		break;
 	}
 }
 
-void Library::displayMenu() {
+void Library::displayMenu() { // used as update for reservation cancelling and displaying the menu
+	// update for reservation
 	string username = " ";
 	int ISBN = -1;
 	for (int i = 0; i < copies.size(); i++) {
-		if (copies[i].getReader() != "No Reader") {
+		if (copies[i].getReader() != "No Reader" && copies[i].getReserver() != "No Reserver") { // updates the reserve date if there is a reserver and a reader
 			copies[i].setReserveDate(copies[i].returnDay());
 		}
-		else if (copies[i].getReserver() != "No Reserver") {
-			if (copies[i].getReserveDate() + 5 <= copies[i].returnDay()) {
+		else if (copies[i].getReserver() != "No Reserver") { // if there is no reader but there is a reserver
+			if (copies[i].getReserveDate() + 5 <= copies[i].returnDay()) { // check if reservation date is over
 				int index = copies[i].getBook();
 				for (int j = 0; j < books.size(); j++) {
-					if (books[j].getIndex() == index) {
+					if (books[j].getIndex() == index) { // check if the book is the correct one
 						username = copies[i].getReserver();
 						ISBN = books[j].getISBN();
 						books[j].eraseReservee(username);
-						if (books[j].getNumberOfReservees() > 0) {
+						// updates copies
+						if (books[j].getNumberOfReservees() > 0) { // updates to next reservee 
 							copies[i].setReserver(books[j].getReserveeList()[0]);
 							copies[i].setReserveDate(copies[i].returnDay());
 							books[j].setNumberOfReservees(books[j].getNumberOfReservees() - 1);
 						}
-						else {
+						else { // reset if default if there are no reservees left
 							copies[i].setReserver("No Reserver");
 							copies[i].setReserveDate(-1);
 						}
 						cout << "The reserver for the copy with the id of " << copies[i].getID() << " has not borrowed the book within the 5 day period.\nThe next reserver will now the the first in line for the book." << endl;
 					}
 				}
+				// updates user
 				cout << "ISBN: " << ISBN << endl;
 				for (int j = 0; j < teachers.size(); j++) {
 					if (teachers[j].getUsername() == username && ISBN != -1) {
@@ -414,12 +426,14 @@ void Library::displayMenu() {
 	}
 	writeFiles();
 
-	if (loggedIn) {
+	// display menu
+	if (loggedIn) { 
 		string input;
 		divider(50);
 		cout << endl << "-             Welcome to My Library!             -" << endl;
 		divider(50);
 
+		// custom menu display for each user type
 		switch (userType) {
 		case 0:
 			librarians[userIndex].displayMenu();
@@ -440,7 +454,7 @@ void Library::displayMenu() {
 		if (isNum(input)) {
 			menuInput(stoi(input));
 		}
-		displayMenu();
+		displayMenu(); // loops
 	}
 	else {
 		string username, password;
@@ -448,21 +462,22 @@ void Library::displayMenu() {
 		cout << "Input username and password to continue.\nUsername: ";
 		cin >> username;
 		cout << "Password: ";
-		ch = _getch();
-		while (ch != 13) {//character 13 is enter
-			if (ch != 8) {
-				password.push_back(ch);
-				cout << '*';
+		ch = _getch(); // get next character
+		// loops until enter 
+		while (ch != 13) { // character 13 is enter
+			if (ch != 8) { // check if backspace is not inputted
+				password.push_back(ch); // adds to string
+				cout << '*'; // replace with '*'
 			}
-			else {
-				if (password.size() > 0) {
-					password.pop_back();
-					cout << "\b \b";
+			else { // if backspace is inputted
+				if (password.size() > 0) { // check if password is empty already
+					password.pop_back(); // deletes the previous character
+					cout << "\b \b"; // move cursor back 
 				}
 			}
-			ch = _getch();
+			ch = _getch(); // get next character
 		}
-		userAuthentication(username, password);
+		userAuthentication(username, password); // goes to userAuthentication
 	}
 }
 
@@ -751,11 +766,10 @@ void Library::deleteBook(int ID) {
 bool Library::overdue(Reader reader) {
 	bool overdue = false;
 	int current_day, due_day, index = 0;
-	for (int i : reader.getBorrowed()) {
+	for (int i : reader.getBorrowed()) { // goes through all borrowed ids in reader's borrowed vector
 		current_day = copies[index].returnDay();
 		due_day = copies[index].getExpirationDate();
-		if (current_day > due_day && due_day != -1) {
-			cout << current_day << " " << due_day << endl;
+		if (current_day > due_day && due_day != -1) { // checks if the book is overdue with the exception of if it's the default -1
 			return true;
 		}
 		index++;
@@ -764,48 +778,53 @@ bool Library::overdue(Reader reader) {
 }
 
 void Library::borrowBook(int ISBN) {
-	if (findIfBookExists(ISBN) == -1 || ISBN == -1) {
+	if (findIfBookExists(ISBN) == -1 || ISBN == -1) { // check if book exists
 		cout << "This book does not exist." << endl;
 		return;
 	}
-	if (userType == 1) {
-		for (Copy copy : copies) {
+	if (userType == 1) { // if user is teacher
+		for (Copy copy : copies) { // goes through the copies to check if the user has already borrowed it 
 			if (copy.getReader() == teachers[userIndex].getUsername()) {
 				cout << "You have already borrowed this book." << endl;
 				return;
 			}
 		}
-		if (overdue(teachers[userIndex])) {
+		if (overdue(teachers[userIndex])) { // checks if books are overdue
 			cout << "You have overdue books." << endl;
+			return;
 		}
-		if (teachers[userType].getMaxCopies() >= teachers[userType].getBorrowed().size()) {
+		else if (teachers[userType].getMaxCopies() >= teachers[userType].getBorrowed().size()) { // checks if the user has too many books currently being borrowed
 			cout << "You have too many books currently being borrowed." << endl;
+			return;
 		}
 		else {
 			bool borrowedBook = false;
 			int index = findIfBookExists(ISBN);
 
-			if (index != -1) {
+			if (index != -1) { // checks if book exists
 				int copyIndex = 0;
-				for (Copy copy : copies) {
+				for (Copy copy : copies) { // goes through all the copies for a copy of the book that currently has no reader or reserver that is not the user
 					if (copy.getBook() == index + 1 && copy.getReader() == "No Reader" && (books[index].getNumberOfReservees() <= 0 || books[index].getReserveeList()[0] == students[userIndex].getUsername())) {
 						copies[copyIndex].setReader(teachers[userIndex].getUsername());
-						if (teachers[userIndex].getBorrowed()[0] == -1) {
+						// adds it to the user
+						if (teachers[userIndex].getBorrowed()[0] == -1) { // gets rid of default case if user has no other books borrowed
 							teachers[userIndex].returnBook(-1);
 						}
 						teachers[userIndex].addBorrowed(copy.getID());
+						// sets info in copy
 						copies[copyIndex].setBorrowDate(copies[copyIndex].returnDay());
 						copies[copyIndex].setExpirationDate(copies[copyIndex].returnDay() + (30 - (books[index].getNumberOfReservees() / 20)));
 						copies[copyIndex].setAvailable(0);
 						cout << "Borrowing book of an ISBN " << ISBN << " and with an ID of " << copy.getID() << ". Please return within " << (30 - (books[index].getNumberOfReservees() / 20)) << " days." << endl;
+						// if user was the first in the reserve list, updates reserve
 						if (!(books[index].getNumberOfReservees() <= 0) && books[index].getReserveeList()[0] == teachers[userIndex].getUsername()) {
 							books[index].eraseReservee(teachers[userIndex].getUsername());
 							books[index].setNumberOfReservees(books[index].getNumberOfReservees() - 1);
 							if (books[index].getNumberOfReservees() <= 0) {
-								copies[copyIndex].setReserver("No Reserver");
+								copies[copyIndex].setReserver("No Reserver"); // base case
 							}
 							else {
-								copies[copyIndex].setReserver(books[index].getReserveeList()[0]);
+								copies[copyIndex].setReserver(books[index].getReserveeList()[0]); // next reserver
 							}
 						}
 						borrowedBook = true;
@@ -822,7 +841,7 @@ void Library::borrowBook(int ISBN) {
 			}
 		}
 	}
-	else {
+	else { // reader is student
 		for (Copy copy : copies) {
 			if (copy.getReader() == students[userIndex].getUsername()) {
 				cout << "You have already borrowed this book." << endl;
@@ -831,9 +850,11 @@ void Library::borrowBook(int ISBN) {
 		}
 		if (overdue(students[userIndex])) {
 			cout << "You have overdue books." << endl;
+			return;
 		}
 		else if (students[userIndex].getMaxCopies() <= students[userIndex].getBorrowed().size()) {
 			cout << "You have too many books currently being borrowed." << endl;
+			return;
 		}
 		else {
 			bool borrowedBook = false;
@@ -882,11 +903,7 @@ void Library::borrowBook(int ISBN) {
 void Library::returnBook(int id) {
 	bool overdue = false;
 	int index = 0;
-	if (id == -1) {
-		cout << "This book does not exist." << endl;
-		return;
-	}
-	for (Copy copy : copies) {
+	for (Copy copy : copies) { // check if the book exists
 		if (copy.getID() == id) {
 			index = 1;
 		}
@@ -896,8 +913,8 @@ void Library::returnBook(int id) {
 		return;
 	}
 	index = 0;
-	if (userType == 1) {
-		for (int i : teachers[userIndex].getBorrowed()) {
+	if (userType == 1) { // reader is teacher
+		for (int i : teachers[userIndex].getBorrowed()) { // checks if the book is overdue
 			if (i = id) {
 				if (copies[i].returnDay() > copies[i].getExpirationDate()) {
 					overdue = true;
@@ -905,22 +922,24 @@ void Library::returnBook(int id) {
 			}
 			index++;
 		}
-		if (teachers[userIndex].returnBook(id)) {
+		if (teachers[userIndex].returnBook(id)) { // helper function for returning
+			// sets information in the copy
 			copies[findCopyInVector(id)].setReader("No Reader");
 			copies[findCopyInVector(id)].setBorrowDate(-1);
 			copies[findCopyInVector(id)].setExpirationDate(-1);
 			copies[findCopyInVector(id)].setAvailable(1);
-			if (overdue) { 
+			if (overdue) { // if overdue, give 1 penalty
 				teachers[userIndex].setPenalties(teachers[userIndex].getPenalties() + 1); 
 				cout << "You have returned this book late and will get a penalty. Get 5 penalties and your maximum number of borrowed books will be reduced by 1." << endl;
-				if (teachers[userIndex].getPenalties() % 5 == 0) {
+				if (teachers[userIndex].getPenalties() % 5 == 0) { // if there are a multiple of 5 copies, the max copies is reduced by 1
 					teachers[userIndex].setMaxCopies(teachers[userIndex].getMaxCopies() - 1);
 					cout << "You have another 5 penalties, as a result, your maximum number of borrowed books will be reduced by 1." << endl;
 				}
 			}
+			favor(id);
 		}
 	}
-	else {
+	else { // if reader is a student
 		for (int i : students[userIndex].getBorrowed()) {
 			if (i = id) {
 				if (copies[findCopyInVector(i)].returnDay() > copies[findCopyInVector(i)].getExpirationDate()) {
@@ -941,8 +960,13 @@ void Library::returnBook(int id) {
 					cout << "You have another 5 books returned late, as a result, your maximum number of borrowed books will be reduced by 1." << endl;
 				}
 			}
+			favor(id);
 		}
 	}
+	writeFiles();
+}
+
+void Library::favor(int id) { // polls whether a user enjoyed their book
 	int i;
 	string input;
 	cout << "Did you like the book?\n(0) - It was ok\n(1) - It was good\n(2) - It was bad\nIf you do not wish to participate, input any other input than the ones listed." << endl;
@@ -955,55 +979,62 @@ void Library::returnBook(int id) {
 		}
 		switch (stoi(input)) {
 		case 1:
-			books[i].setFavor(books[i].getFavor() + 1);
+			books[i].setFavor(books[i].getFavor() + 1); // if 1, increase favor
 			break;
 		case 2:
-			books[i].setFavor(books[i].getFavor() - 1);
+			books[i].setFavor(books[i].getFavor() - 1); // if 2, decrease favor
 			break;
-		default:
+		default: // skip
 			break;
 		}
 	}
-	writeFiles();
 }
 
-void Library::reserveBook(int ISBN) {
+void Library::reserveBook(int ISBN) { 
+	// check for book validity
 	if (findIfBookExists(ISBN) == -1 || ISBN == -1) {
 		cout << "This book does not exist." << endl;
 		return;
 	}
 	bool index = -1;
-	if (userType == 1) {
-		for (int isbn : teachers[userIndex].getReserved()) {
+	if (userType == 1) { // if reader is a teacher
+		// checks for if the reader has already reserved the book
+		for (int isbn : teachers[userIndex].getReserved()) { 
 			if (isbn == ISBN) {
 				cout << "You have already reserved this book" << endl;
 				break;
 			}
 		}
+		// if users have overdue books, stop function
 		if (overdue(teachers[userIndex])) {
 			cout << "You have overdue books, please return them before reserving books." << endl;
+			return;
 		}
 		else {
+			// get the index of the book
 			for (Book book : books) {
 				index++;
 				if (book.getISBN() == ISBN) {
 					break;
 				}
 			}
-			if (index != -1) {
-				for (string username : books[index].getReserveeList()) {
+			if (index != -1) { // book is valid
+				for (string username : books[index].getReserveeList()) { // checks for if the reader has reserved the book within the reserveeList
 					if (username == teachers[userIndex].getUsername()) {
 						cout << "You have already reserved this book." << endl;
 						return;
 					}
 				}
+				// set information in book
 				cout << "Reserved book of ISBN " << ISBN << endl;
 				books[index].addReserveeList(teachers[userIndex].getUsername());
 				books[index].setNumberOfReservees(books[index].getNumberOfReservees() + 1);
-				if (teachers[userIndex].getReserved()[0] == -1) {
+				// set information in reader
+				if (teachers[userIndex].getReserved()[0] == -1) { // deletes base case '-1' if user has no books reserved
 					teachers[userIndex].cancelReserve(-1);
 				}
 				teachers[userIndex].addReserved(ISBN);
+				// set information in copy
 				for (int i = 0; i < copies.size(); i++) {
 					if (copies[i].getBook() == index) {
 						if (copies[i].getReserver() == "No Reserver") {
@@ -1018,9 +1049,10 @@ void Library::reserveBook(int ISBN) {
 			}
 		}
 	}
-	else {
+	else { // reader is a student
 		if (overdue(students[userIndex])) {
 			cout << "You have overdue books, please return them before reserving books." << endl;
+			return;
 		}
 		else {
 			for (Book book : books) {
@@ -1057,26 +1089,29 @@ void Library::reserveBook(int ISBN) {
 			}
 		}
 	}
-	writeFiles();
+	writeFiles(); // update
 }
 
 void Library::cancelReserve(int ISBN) {
 	int index = findIfBookExists(ISBN), copyIndex = 0;
-	if (index == -1) {
+	if (index == -1) { // if book does not exist
 		cout << "This book does not exist" << endl;
 		return;
 	}
-	if (userType == 1) {
-		if (teachers[userIndex].cancelReserve(ISBN)) {
+	if (userType == 1) { // reader is a teacher
+		if (teachers[userIndex].cancelReserve(ISBN)) { // helper function in reader for cancel reserve
+			// delete reader from the book
 			books[index].eraseReservee(teachers[userIndex].getUsername());
+			books[index].setNumberOfReservees(books[index].getNumberOfReservees() - 1);
+			// delete users from the copies of the book
 			for (Copy copy : copies) {
 				if (copies[copyIndex].getBook() == index + 1 && copies[copyIndex].getReserver() == teachers[userIndex].getUsername()) {
-					if (findBook(ISBN)->getNumberOfReservees() <= 0) {
-						copies[copyIndex].setReserver("No Reserver");
+					if (findBook(ISBN)->getNumberOfReservees() <= 0) { // if there are no resrvers
+						copies[copyIndex].setReserver("No Reserver"); // return to default
 						copies[copyIndex].setReserveDate(-1);
 					}
-					else {
-						copies[copyIndex].setReserver(findBook(ISBN)->getReserveeList()[0]);
+					else { // if there are reservers
+						copies[copyIndex].setReserver(findBook(ISBN)->getReserveeList()[0]); // display first reserver
 						copies[copyIndex].setReserveDate(copies[copyIndex].returnDay());
 					}
 					break;
@@ -1085,9 +1120,10 @@ void Library::cancelReserve(int ISBN) {
 			}
 		}
 	}
-	else {
+	else { // reader is a student
 		if (students[userIndex].cancelReserve(ISBN)) {
 			books[index].eraseReservee(students[userIndex].getUsername());
+			books[index].setNumberOfReservees(books[index].getNumberOfReservees() - 1);
 			for (Copy copy : copies) {
 				if (copies[copyIndex].getBook() == index + 1 && copies[copyIndex].getReserver() == teachers[userIndex].getUsername()) {
 					if (findBook(ISBN)->getNumberOfReservees() <= 0) {
@@ -1108,34 +1144,36 @@ void Library::cancelReserve(int ISBN) {
 }
 
 void Library::renewBook(int id) {
-	int index = -1;
-	if (userType == 1) {
-		index++;
-		if (teachers[userIndex].getReserved().size() == 0 && !overdue(teachers[userIndex])) {
-			for (int i : teachers[userIndex].getBorrowed()) {
+	int index = -1, day = 0;
+	if (userType == 1) { // reader is a teacher
+		day = teachers[userIndex].getMaxBorrowingPeriod(); // set day to maxBorrowingDay
+		if (teachers[userIndex].getBorrowed().size() == 0 && !overdue(teachers[userIndex])) { // checks if there are books and if there are no overdue book
+			for (int i : teachers[userIndex].getBorrowed()) { // checks for the correct index of the book
 				if (i == id) {
 					break;
 				}
+				index++;
 			}
 		}
 	}
-	else {
-		index++;
-		if (students[userIndex].getReserved().size() == 0 && !overdue(students[userIndex])) {
+	else { // reader is a student
+		day = students[userIndex].getMaxBorrowingPeriod();
+		if (students[userIndex].getBorrowed().size() == 0 && !overdue(students[userIndex])) {
 			for (int i : students[userIndex].getBorrowed()) {
 				if (i == id) {
 					break;
 				}
+				index++;
 			}
 		}
 	}
-	if (index != -1) {
-		copies[index].setExpirationDate(copies[index].getExpirationDate() + 5);
+	if (index != -1) { // if there is a book
+		copies[index].setExpirationDate(copies[index].getExpirationDate() + day); // add day to the expiration date
 	}
 	else {
-		cout << "This book does not exist to be renewed." << endl;
+		cout << "You do not have this book or it does not exist to be renewed." << endl;
 	}
-	// update
+	writeFiles();
 }
 
 void Library::searchBooks() {
